@@ -7,10 +7,10 @@ All permanent rules (branching strategy, commit format, PR generation, how to ma
 
 ---
 
-## M00 – Project Setup & Responsive Shell 🔄 IN PROGRESS
+## M00 – Project Setup & Responsive Shell ✅ COMPLETE
 
 **Branch:** `feat/m00-project-setup`  
-**Status:** Active – agent is working here
+**Status:** Merged into `development`
 
 ### Context
 Establishes the Flutter multi-platform application foundation targeting Windows desktop and Android (phones and tablets). Configures clean architecture layer separation (`core/`, `data/`, `domain/`, `presentation/`), strict linting rules, Material 3 high-contrast theme, go_router navigation, and responsive shell scaffolding (Sidebar / NavigationRail for desktop/tablet, NavigationBar for mobile).
@@ -28,10 +28,10 @@ Establishes the Flutter multi-platform application foundation targeting Windows 
 
 ---
 
-## M01 – Core Data Layer & Business Profile ⏳ PENDING
+## M01 – Core Data Layer & Business Profile 🔄 IN PROGRESS
 
 **Branch:** `feat/m01-core-data-layer`  
-**Status:** Pending human review of M00
+**Status:** Active – agent is working here
 
 ### Context
 Defines the complete local SQLite schema via Drift tables and DAOs with compile-time safety, reactive streams, and strict integer-cents money typing. Implements the Business Profile singleton, persistent local logo storage in application documents, and core financial math utilities.
