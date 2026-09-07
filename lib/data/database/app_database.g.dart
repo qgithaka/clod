@@ -5464,6 +5464,21 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $DocumentsTable documents = $DocumentsTable(this);
   late final $AppSettingsTable appSettings = $AppSettingsTable(this);
   late final $BackupLogsTable backupLogs = $BackupLogsTable(this);
+  late final BusinessProfileDao businessProfileDao = BusinessProfileDao(
+    this as AppDatabase,
+  );
+  late final CustomerDao customerDao = CustomerDao(this as AppDatabase);
+  late final ItemDao itemDao = ItemDao(this as AppDatabase);
+  late final SaleDao saleDao = SaleDao(this as AppDatabase);
+  late final CreditTransactionDao creditTransactionDao = CreditTransactionDao(
+    this as AppDatabase,
+  );
+  late final PurchaseDao purchaseDao = PurchaseDao(this as AppDatabase);
+  late final StockMovementDao stockMovementDao = StockMovementDao(
+    this as AppDatabase,
+  );
+  late final ExpenseDao expenseDao = ExpenseDao(this as AppDatabase);
+  late final DocumentDao documentDao = DocumentDao(this as AppDatabase);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
