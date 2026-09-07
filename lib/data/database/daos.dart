@@ -30,10 +30,11 @@ class ItemDao extends DatabaseAccessor<AppDatabase> with _$ItemDaoMixin {
   ItemDao(super.db);
 
   Stream<List<Item>> watchAllItems() => select(items).watch();
+  Stream<List<Item>> watchAllActiveItems() => (select(items)..where((i) => i.isActive.equals(true))).watch();
   Future<List<Item>> getAllItems() => select(items).get();
   Future<Item> getItem(int id) => (select(items)..where((i) => i.id.equals(id))).getSingle();
   Future<int> insertItem(ItemsCompanion item) => into(items).insert(item);
-  Future<bool> updateItem(ItemsCompanion item) => update(items).replace(item);
+  Future<int> updateItem(ItemsCompanion item) => (update(items)..where((i) => i.id.equals(item.id.value))).write(item);
 }
 
 @DriftAccessor(tables: [Sales, SaleItems])

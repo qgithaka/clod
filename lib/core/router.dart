@@ -11,6 +11,8 @@ import '../presentation/views/customer_form_view.dart';
 import '../presentation/views/customer_detail_view.dart';
 
 import '../presentation/views/dashboard_view.dart';
+import '../presentation/views/catalogue_view.dart';
+import '../presentation/views/item_form_view.dart';
 
 final _shellNavigatorDashboardKey = GlobalKey<NavigatorState>(debugLabel: 'dashboard');
 final _shellNavigatorCustomersKey = GlobalKey<NavigatorState>(debugLabel: 'customers');
@@ -80,7 +82,17 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/catalogue',
-                builder: (context, state) => const PlaceholderView(title: 'Catalogue'),
+                builder: (context, state) => const CatalogueView(),
+                routes: [
+                  GoRoute(
+                    path: 'new',
+                    builder: (context, state) => const ItemFormView(itemId: 'new'),
+                  ),
+                  GoRoute(
+                    path: ':id',
+                    builder: (context, state) => ItemFormView(itemId: state.pathParameters['id']!),
+                  ),
+                ],
               ),
             ],
           ),
