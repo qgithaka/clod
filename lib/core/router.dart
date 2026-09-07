@@ -13,6 +13,7 @@ import '../presentation/views/customer_detail_view.dart';
 import '../presentation/views/dashboard_view.dart';
 import '../presentation/views/catalogue_view.dart';
 import '../presentation/views/item_form_view.dart';
+import '../presentation/views/pos_view.dart';
 
 final _shellNavigatorDashboardKey = GlobalKey<NavigatorState>(debugLabel: 'dashboard');
 final _shellNavigatorCustomersKey = GlobalKey<NavigatorState>(debugLabel: 'customers');
@@ -101,7 +102,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/pos',
-                builder: (context, state) => const PlaceholderView(title: 'POS'),
+                builder: (context, state) => const PosView(),
               ),
             ],
           ),
