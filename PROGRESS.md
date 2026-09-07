@@ -58,7 +58,7 @@ Implements the customer directory and credit ledger system. Tracks individual cu
 
 ### Tasks
 
-- [ ] Implement Customer domain entity, repository, and Riverpod providers
+- [x] Implement Customer domain entity, repository, and Riverpod providers
 - [ ] Build Customer List screen with real-time search and outstanding balance badges
 - [ ] Build Add/Edit Customer form with validation (name, phone, address, credit limit)
 - [ ] Build Customer Detail screen displaying transaction history and current credit balance
