@@ -107,7 +107,7 @@ Constructs the high-speed, touch-optimized checkout experience. Manages an in-me
 
 ---
 
-## M05 – Back-Office Operations 🔄 IN PROGRESS
+## M05 – Back-Office Operations ✅ COMPLETE
 
 **Branch:** `feat/m05-back-office`  
 **Status:** Active – agent is working here
