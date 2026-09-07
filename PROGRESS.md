@@ -126,22 +126,22 @@ Handles inventory restocking via Purchase Orders with automated weighted average
 
 ---
 
-## M06 – Business Documents (Quotes & Invoices) ⏳ PENDING
+## M06 – Business Documents (Quotes & Invoices) ✅ COMPLETE
 
 **Branch:** `feat/m06-business-documents`  
-**Status:** Pending M05
+**Status:** Active – agent is working here
 
 ### Context
 Provides professional document creation for quotes and invoices. Supports one-click conversion of quotes into active sales or invoices, status lifecycle tracking, and dynamic branded PDF rendering.
 
 ### Tasks
 
-- [ ] Implement Document domain model (`quote` vs `invoice`) and Drift repository
-- [ ] Build Document List screen with status filters (Draft / Sent / Accepted / Paid / Cancelled)
-- [ ] Build Document Creation/Editing screen with line items and customer attachment
-- [ ] Implement one-click conversion: Quote -> Invoice / Cart Sale
-- [ ] Implement dynamic PDF generator for Quotes and Invoices
-- [ ] Write unit tests for document lifecycle and conversion logic
+  - [x] Implement Document domain model (`quote` vs `invoice`) and Drift repository
+  - [x] Build Document List screen with status filters (Draft / Sent / Accepted / Paid / Cancelled)
+  - [x] Build Document Creation/Editing screen with line items and customer attachment
+  - [x] Implement one-click conversion: Quote -> Invoice / Cart Sale
+  - [x] Implement dynamic PDF generator for Quotes and Invoices
+  - [x] Write unit tests for document lifecycle and conversion logic
 
 ---
 
