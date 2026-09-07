@@ -181,10 +181,10 @@ Guarantees merchant data durability through encrypted `.clodbackup` exports (AES
 
 ---
 
-## M09 – Polish, Multi-Platform Packaging & Release 🔄 IN PROGRESS
+## M09 – Polish, Multi-Platform Packaging & Release ✅ COMPLETE
 
 **Branch:** `feat/m09-polish-release`  
-**Status:** Active – agent is working here
+**Status:** Merged into `development`
 
 ### Context
 Conducts comprehensive cross-platform responsiveness audits across Windows desktop, Android phones, and tablets. Executes performance optimizations, branding/app icon integration, and standalone packaging build pipelines.
@@ -196,3 +196,19 @@ Conducts comprehensive cross-platform responsiveness audits across Windows deskt
   - [x] App icons, branding assets, splash screen configuration
   - [x] End-to-end integration test suite covering the full merchant lifecycle
 - [x] Build scripts for Windows installer (MSIX / Inno Setup) and Android APK / AAB signing
+
+---
+
+## M10 - Automated Releases & Versioning 📝 PLANNED
+
+**Branch:** `feat/m10-automated-releases`  
+**Status:** Pending human approval
+
+### Context
+Implements automated release generation, semantic versioning, and distribution workflows to streamline the delivery of Clod updates to end users.
+
+### Tasks
+- [ ] Configure semantic versioning synchronization across pubspec.yaml and native platforms
+- [ ] Implement GitHub Actions CI pipeline for automated builds and testing
+- [ ] Create automated GitHub release drafting and changelog generation
+- [ ] Attach release artifacts (Windows Installer, Android APK/AAB) automatically
