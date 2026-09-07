@@ -61,8 +61,8 @@ Implements the customer directory and credit ledger system. Tracks individual cu
 - [x] Implement Customer domain entity, repository, and Riverpod providers
 - [x] Build Customer List screen with real-time search and outstanding balance badges
 - [x] Build Add/Edit Customer form with validation (name, phone, address, credit limit)
-- [ ] Build Customer Detail screen displaying transaction history and current credit balance
-- [ ] Implement atomic Repayment flow (inserts `credit_transaction`, updates balance)
+- [x] Build Customer Detail screen displaying transaction history and current credit balance
+- [x] Implement atomic Repayment flow (inserts `credit_transaction`, updates balance)
 - [ ] Build Credit Ledger dashboard summarizing total outstanding debt and top debtors
 - [ ] Implement dynamic Credit Statement PDF generation and sharing
 - [ ] Write unit and integration tests covering credit limits, repayments, and balance updates
