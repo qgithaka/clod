@@ -18,6 +18,7 @@ import '../presentation/views/profit_loss_view.dart';
 import '../presentation/views/back_office_view.dart';
 import '../presentation/views/document_list_view.dart';
 import '../presentation/views/document_form_view.dart';
+import '../presentation/views/settings_view.dart';
 
 final _shellNavigatorDashboardKey = GlobalKey<NavigatorState>(debugLabel: 'dashboard');
 final _shellNavigatorCustomersKey = GlobalKey<NavigatorState>(debugLabel: 'customers');
@@ -148,7 +149,13 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/settings',
-                builder: (context, state) => const BusinessProfileView(),
+                builder: (context, state) => const SettingsView(),
+                routes: [
+                  GoRoute(
+                    path: 'business_profile',
+                    builder: (context, state) => const BusinessProfileView(),
+                  ),
+                ],
               ),
             ],
           ),

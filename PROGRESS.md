@@ -163,21 +163,21 @@ Provides the merchant with actionable real-time business intelligence: daily rev
 
 ---
 
-## M08 – Settings, Encrypted Backups & Cloud Sync ⏳ PENDING
+## M08 – Settings, Encrypted Backups & Cloud Sync 🔄 IN PROGRESS
 
 **Branch:** `feat/m08-backups-sync`  
-**Status:** Pending M07
+**Status:** Active – agent is working here
 
 ### Context
 Guarantees merchant data durability through encrypted `.clodbackup` exports (AES-256 encrypted SQLite snapshot + metadata), integrity-verified database restores, and optional Google Drive synchronization.
 
 ### Tasks
-
-- [ ] Implement encrypted local backup service exporting `.clodbackup` (AES-256 encrypted SQLite snapshot + metadata)
-- [ ] Implement full restore engine validating checksums and schema versions before database swap
-- [ ] Implement optional Google Drive backup sync via OAuth2
-- [ ] Build Settings screen (Business profile, backup scheduling, manual backup/restore, Drive status)
-- [ ] Write unit tests for backup encryption, integrity verification, and restore pipelines
+  
+  - [x] Implement encrypted local backup service exporting `.clodbackup` (AES-256 encrypted SQLite snapshot + metadata)
+  - [x] Implement full restore engine validating checksums and schema versions before database swap
+  - [x] Implement optional Google Drive backup sync via OAuth2
+  - [x] Build Settings screen (Business profile, backup scheduling, manual backup/restore, Drive status)
+  - [x] Write unit tests for backup encryption, integrity verification, and restore pipelines
 
 ---
 
