@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/money.dart';
 import '../../data/repositories/customer_repository.dart';
+import '../../data/repositories/business_profile_repository.dart';
+import '../../core/services/credit_statement_service.dart';
 
 class CustomerDetailView extends ConsumerWidget {
   final int customerId;
@@ -12,11 +14,25 @@ class CustomerDetailView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final customerAsync = ref.watch(customerProvider(customerId));
     final txnsAsync = ref.watch(creditTransactionsProvider(customerId));
+    final businessProfileAsync = ref.watch(businessProfileProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Customer Details'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.picture_as_pdf),
+            onPressed: () async {
+              if (customerAsync.value != null && txnsAsync.value != null) {
+                final svc = ref.read(creditStatementServiceProvider);
+                await svc.generateAndShareStatement(
+                  businessProfile: businessProfileAsync.value,
+                  customer: customerAsync.value!,
+                  transactions: txnsAsync.value!,
+                );
+              }
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.edit),
             onPressed: () => context.go('/customers/$customerId/edit'),
