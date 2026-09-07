@@ -10,6 +10,8 @@ class BusinessProfile extends Table {
   IntColumn get updatedAt => integer()();
 }
 
+@TableIndex(name: 'customer_name_idx', columns: {#name})
+@TableIndex(name: 'customer_is_active_idx', columns: {#isActive})
 class Customers extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get name => text()();
@@ -22,6 +24,8 @@ class Customers extends Table {
   IntColumn get updatedAt => integer()();
 }
 
+@TableIndex(name: 'item_name_idx', columns: {#name})
+@TableIndex(name: 'item_type_idx', columns: {#type})
 class Items extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get name => text()();
@@ -35,6 +39,7 @@ class Items extends Table {
   IntColumn get updatedAt => integer()();
 }
 
+@TableIndex(name: 'sales_created_at_idx', columns: {#createdAt})
 class Sales extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get customerId => integer().nullable().references(Customers, #id)();
@@ -43,6 +48,8 @@ class Sales extends Table {
   IntColumn get createdAt => integer()();
 }
 
+@TableIndex(name: 'sale_items_sale_id_idx', columns: {#saleId})
+@TableIndex(name: 'sale_items_item_id_idx', columns: {#itemId})
 class SaleItems extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get saleId => integer().references(Sales, #id)();
@@ -52,6 +59,8 @@ class SaleItems extends Table {
   IntColumn get totalLineCents => integer()();
 }
 
+@TableIndex(name: 'credit_tx_customer_id_idx', columns: {#customerId})
+@TableIndex(name: 'credit_tx_created_at_idx', columns: {#createdAt})
 class CreditTransactions extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get customerId => integer().references(Customers, #id)();
