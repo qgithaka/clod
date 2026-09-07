@@ -15,6 +15,8 @@ import '../presentation/views/catalogue_view.dart';
 import '../presentation/views/item_form_view.dart';
 import '../presentation/views/pos_view.dart';
 import '../presentation/views/back_office_view.dart';
+import '../presentation/views/document_list_view.dart';
+import '../presentation/views/document_form_view.dart';
 
 final _shellNavigatorDashboardKey = GlobalKey<NavigatorState>(debugLabel: 'dashboard');
 final _shellNavigatorCustomersKey = GlobalKey<NavigatorState>(debugLabel: 'customers');
@@ -113,7 +115,15 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/documents',
-                builder: (context, state) => const PlaceholderView(title: 'Documents'),
+                builder: (context, state) => const DocumentListView(),
+                routes: [
+                  GoRoute(
+                    path: 'new',
+                    builder: (context, state) => DocumentFormView(
+                      documentType: state.extra as String? ?? 'quote',
+                    ),
+                  ),
+                ]
               ),
             ],
           ),
