@@ -54,7 +54,7 @@ class ResponsiveShell extends StatelessWidget {
                 NavigationRail(
                   selectedIndex: selectedIndex,
                   onDestinationSelected: onDestinationSelected,
-                  labelType: NavigationRailLabelType.all,
+                  labelType: constraints.maxWidth >= 1200 ? NavigationRailLabelType.none : NavigationRailLabelType.all,
                   destinations: _railDestinations,
                   extended: constraints.maxWidth >= 1200,
                 ),
