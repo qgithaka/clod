@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:drift/native.dart';
 import 'package:clod/data/database/app_database.dart';
-import 'package:drift/drift.dart' as drift;
 
 void main() {
   late AppDatabase db;
