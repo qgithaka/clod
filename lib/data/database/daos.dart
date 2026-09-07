@@ -30,6 +30,7 @@ class ItemDao extends DatabaseAccessor<AppDatabase> with _$ItemDaoMixin {
   ItemDao(super.db);
 
   Stream<List<Item>> watchAllItems() => select(items).watch();
+  Stream<List<Item>> watchAllActiveItems() => (select(items)..where((i) => i.isActive.equals(true))).watch();
   Future<List<Item>> getAllItems() => select(items).get();
   Future<Item> getItem(int id) => (select(items)..where((i) => i.id.equals(id))).getSingle();
   Future<int> insertItem(ItemsCompanion item) => into(items).insert(item);
