@@ -195,4 +195,4 @@ Conducts comprehensive cross-platform responsiveness audits across Windows deskt
   - [x] Performance pass on large product catalogues and long customer credit histories
   - [x] App icons, branding assets, splash screen configuration
   - [x] End-to-end integration test suite covering the full merchant lifecycle
-- [ ] Build scripts for Windows installer (MSIX / Inno Setup) and Android APK / AAB signing
+- [x] Build scripts for Windows installer (MSIX / Inno Setup) and Android APK / AAB signing
