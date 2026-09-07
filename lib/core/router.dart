@@ -4,6 +4,14 @@ import 'package:go_router/go_router.dart';
 
 import '../presentation/shell/responsive_shell.dart';
 import '../presentation/views/placeholder_view.dart';
+import '../presentation/views/business_profile_view.dart';
+
+final _shellNavigatorDashboardKey = GlobalKey<NavigatorState>(debugLabel: 'dashboard');
+final _shellNavigatorCustomersKey = GlobalKey<NavigatorState>(debugLabel: 'customers');
+final _shellNavigatorCatalogueKey = GlobalKey<NavigatorState>(debugLabel: 'catalogue');
+final _shellNavigatorPOSKey = GlobalKey<NavigatorState>(debugLabel: 'pos');
+final _shellNavigatorDocumentsKey = GlobalKey<NavigatorState>(debugLabel: 'documents');
+final _shellNavigatorSettingsKey = GlobalKey<NavigatorState>(debugLabel: 'settings');
 
 final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
@@ -24,6 +32,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         },
         branches: [
           StatefulShellBranch(
+            navigatorKey: _shellNavigatorDashboardKey,
             routes: [
               GoRoute(
                 path: '/dashboard',
@@ -32,6 +41,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             ],
           ),
           StatefulShellBranch(
+            navigatorKey: _shellNavigatorCustomersKey,
             routes: [
               GoRoute(
                 path: '/customers',
@@ -40,6 +50,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             ],
           ),
           StatefulShellBranch(
+            navigatorKey: _shellNavigatorCatalogueKey,
             routes: [
               GoRoute(
                 path: '/catalogue',
@@ -48,6 +59,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             ],
           ),
           StatefulShellBranch(
+            navigatorKey: _shellNavigatorPOSKey,
             routes: [
               GoRoute(
                 path: '/pos',
@@ -56,6 +68,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             ],
           ),
           StatefulShellBranch(
+            navigatorKey: _shellNavigatorDocumentsKey,
             routes: [
               GoRoute(
                 path: '/documents',
@@ -64,10 +77,11 @@ final routerProvider = Provider<GoRouter>((ref) {
             ],
           ),
           StatefulShellBranch(
+            navigatorKey: _shellNavigatorSettingsKey,
             routes: [
               GoRoute(
                 path: '/settings',
-                builder: (context, state) => const PlaceholderView(title: 'Settings'),
+                builder: (context, state) => const BusinessProfileView(),
               ),
             ],
           ),
