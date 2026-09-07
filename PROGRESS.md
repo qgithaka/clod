@@ -24,7 +24,7 @@ Establishes the Flutter multi-platform application foundation targeting Windows 
 - [x] Implement responsive shell (Sidebar / NavigationRail on Desktop & Tablet, NavigationBar on Mobile)
 - [x] Implement go_router configuration with placeholder route shells for all primary views
 - [x] Initialize empty Drift database instance and verify platform-specific sqlite bindings on Windows and Android
-- [ ] Write unit and widget tests verifying responsive shell layout and routing
+- [x] Write unit and widget tests verifying responsive shell layout and routing
 
 ---
 
