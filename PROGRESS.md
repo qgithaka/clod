@@ -23,7 +23,7 @@ Establishes the Flutter multi-platform application foundation targeting Windows 
 - [x] Configure Material 3 theme with high-contrast palette and dark/light mode foundations
 - [x] Implement responsive shell (Sidebar / NavigationRail on Desktop & Tablet, NavigationBar on Mobile)
 - [x] Implement go_router configuration with placeholder route shells for all primary views
-- [ ] Initialize empty Drift database instance and verify platform-specific sqlite bindings on Windows and Android
+- [x] Initialize empty Drift database instance and verify platform-specific sqlite bindings on Windows and Android
 - [ ] Write unit and widget tests verifying responsive shell layout and routing
 
 ---
