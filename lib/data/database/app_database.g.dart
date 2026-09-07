@@ -5464,6 +5464,42 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $DocumentsTable documents = $DocumentsTable(this);
   late final $AppSettingsTable appSettings = $AppSettingsTable(this);
   late final $BackupLogsTable backupLogs = $BackupLogsTable(this);
+  late final Index customerNameIdx = Index(
+    'customer_name_idx',
+    'CREATE INDEX customer_name_idx ON customers (name)',
+  );
+  late final Index customerIsActiveIdx = Index(
+    'customer_is_active_idx',
+    'CREATE INDEX customer_is_active_idx ON customers (is_active)',
+  );
+  late final Index itemNameIdx = Index(
+    'item_name_idx',
+    'CREATE INDEX item_name_idx ON items (name)',
+  );
+  late final Index itemTypeIdx = Index(
+    'item_type_idx',
+    'CREATE INDEX item_type_idx ON items (type)',
+  );
+  late final Index salesCreatedAtIdx = Index(
+    'sales_created_at_idx',
+    'CREATE INDEX sales_created_at_idx ON sales (created_at)',
+  );
+  late final Index saleItemsSaleIdIdx = Index(
+    'sale_items_sale_id_idx',
+    'CREATE INDEX sale_items_sale_id_idx ON sale_items (sale_id)',
+  );
+  late final Index saleItemsItemIdIdx = Index(
+    'sale_items_item_id_idx',
+    'CREATE INDEX sale_items_item_id_idx ON sale_items (item_id)',
+  );
+  late final Index creditTxCustomerIdIdx = Index(
+    'credit_tx_customer_id_idx',
+    'CREATE INDEX credit_tx_customer_id_idx ON credit_transactions (customer_id)',
+  );
+  late final Index creditTxCreatedAtIdx = Index(
+    'credit_tx_created_at_idx',
+    'CREATE INDEX credit_tx_created_at_idx ON credit_transactions (created_at)',
+  );
   late final BusinessProfileDao businessProfileDao = BusinessProfileDao(
     this as AppDatabase,
   );
@@ -5497,6 +5533,15 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     documents,
     appSettings,
     backupLogs,
+    customerNameIdx,
+    customerIsActiveIdx,
+    itemNameIdx,
+    itemTypeIdx,
+    salesCreatedAtIdx,
+    saleItemsSaleIdIdx,
+    saleItemsItemIdIdx,
+    creditTxCustomerIdIdx,
+    creditTxCreatedAtIdx,
   ];
 }
 

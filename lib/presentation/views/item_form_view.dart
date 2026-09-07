@@ -76,9 +76,13 @@ class _ItemFormViewState extends ConsumerState<ItemFormView> {
             )
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Form(
+      body: Align(
+        alignment: Alignment.topCenter,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 600),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Form(
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -143,6 +147,8 @@ class _ItemFormViewState extends ConsumerState<ItemFormView> {
             ],
           ),
         ),
+      ),
+      ),
       ),
     );
   }

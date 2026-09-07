@@ -46,7 +46,11 @@ class _ExpenseViewState extends ConsumerState<ExpenseView> {
     ));
 
     return Scaffold(
-      body: Column(
+      body: Align(
+        alignment: Alignment.topCenter,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -106,6 +110,8 @@ class _ExpenseViewState extends ConsumerState<ExpenseView> {
             ),
           ),
         ],
+      ),
+      ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showAddExpenseDialog(context),

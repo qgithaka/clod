@@ -81,7 +81,11 @@ class _BusinessProfileViewState extends ConsumerState<BusinessProfileView> {
             _isInitialized = true;
           }
 
-          return SingleChildScrollView(
+          return Align(
+            alignment: Alignment.topCenter,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 600),
+              child: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
             child: Form(
               key: _formKey,
@@ -142,6 +146,8 @@ class _BusinessProfileViewState extends ConsumerState<BusinessProfileView> {
                   )
                 ],
               ),
+            ),
+            ),
             ),
           );
         },

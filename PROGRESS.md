@@ -163,10 +163,10 @@ Provides the merchant with actionable real-time business intelligence: daily rev
 
 ---
 
-## M08 – Settings, Encrypted Backups & Cloud Sync 🔄 IN PROGRESS
+## M08 – Settings, Encrypted Backups & Cloud Sync ✅ COMPLETE
 
 **Branch:** `feat/m08-backups-sync`  
-**Status:** Active – agent is working here
+**Status:** Merged into `development`
 
 ### Context
 Guarantees merchant data durability through encrypted `.clodbackup` exports (AES-256 encrypted SQLite snapshot + metadata), integrity-verified database restores, and optional Google Drive synchronization.
@@ -181,18 +181,18 @@ Guarantees merchant data durability through encrypted `.clodbackup` exports (AES
 
 ---
 
-## M09 – Polish, Multi-Platform Packaging & Release ⏳ PENDING
+## M09 – Polish, Multi-Platform Packaging & Release 🔄 IN PROGRESS
 
 **Branch:** `feat/m09-polish-release`  
-**Status:** Pending M08
+**Status:** Active – agent is working here
 
 ### Context
 Conducts comprehensive cross-platform responsiveness audits across Windows desktop, Android phones, and tablets. Executes performance optimizations, branding/app icon integration, and standalone packaging build pipelines.
 
 ### Tasks
 
-- [ ] Multi-platform UI responsiveness audit (Windows Desktop, Android Phone, Android Tablet)
-- [ ] Performance pass on large product catalogues and long customer credit histories
-- [ ] App icons, branding assets, splash screen configuration
-- [ ] End-to-end integration test suite covering the full merchant lifecycle
-- [ ] Build scripts for Windows installer (MSIX / Inno Setup) and Android APK / AAB signing
+  - [x] Multi-platform UI responsiveness audit (Windows Desktop, Android Phone, Android Tablet)
+  - [x] Performance pass on large product catalogues and long customer credit histories
+  - [x] App icons, branding assets, splash screen configuration
+  - [x] End-to-end integration test suite covering the full merchant lifecycle
+- [x] Build scripts for Windows installer (MSIX / Inno Setup) and Android APK / AAB signing

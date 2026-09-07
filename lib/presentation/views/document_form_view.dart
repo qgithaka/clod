@@ -35,53 +35,59 @@ class _DocumentFormViewState extends ConsumerState<DocumentFormView> {
       body: customersAsync.when(
         data: (customers) {
           if (customers.isEmpty) return const Center(child: Text('Please create a customer first.'));
-          return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                DropdownButtonFormField<int>(
-                  decoration: const InputDecoration(labelText: 'Customer'),
-                  value: _selectedCustomerId,
-                  items: customers.map((c) => DropdownMenuItem(value: c.id, child: Text(c.name))).toList(),
-                  onChanged: (v) => setState(() => _selectedCustomerId = v),
+          return Align(
+            alignment: Alignment.topCenter,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 800),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    DropdownButtonFormField<int>(
+                      decoration: const InputDecoration(labelText: 'Customer'),
+                      value: _selectedCustomerId,
+                      items: customers.map((c) => DropdownMenuItem(value: c.id, child: Text(c.name))).toList(),
+                      onChanged: (v) => setState(() => _selectedCustomerId = v),
+                    ),
+                    const SizedBox(height: 16),
+                    const Text('Line Items', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: _items.length,
+                        itemBuilder: (context, index) {
+                          final item = _items[index];
+                          return ListTile(
+                            title: Text(item.itemName),
+                            subtitle: Text('${item.quantity} x ${Money(item.unitPriceCents).format()}'),
+                            trailing: IconButton(
+                              icon: const Icon(Icons.delete),
+                              onPressed: () => setState(() => _items.removeAt(index)),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    Text('Total: ${Money(totalCents).format()}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                    const SizedBox(height: 16),
+                    itemsAsync.when(
+                       data: (activeItems) {
+                         return FilledButton.tonal(
+                            onPressed: () => _showAddItemDialog(context, activeItems),
+                            child: const Text('Add Item'),
+                         );
+                       },
+                       loading: () => const Center(child: CircularProgressIndicator()),
+                       error: (e, s) => Text('Error: $e'),
+                    ),
+                    const SizedBox(height: 16),
+                    FilledButton(
+                      onPressed: _selectedCustomerId == null || _items.isEmpty ? null : _saveDocument,
+                      child: const Text('Save Document'),
+                    )
+                  ],
                 ),
-                const SizedBox(height: 16),
-                const Text('Line Items', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: _items.length,
-                    itemBuilder: (context, index) {
-                      final item = _items[index];
-                      return ListTile(
-                        title: Text(item.itemName),
-                        subtitle: Text('${item.quantity} x ${Money(item.unitPriceCents).format()}'),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.delete),
-                          onPressed: () => setState(() => _items.removeAt(index)),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                Text('Total: ${Money(totalCents).format()}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                const SizedBox(height: 16),
-                itemsAsync.when(
-                   data: (activeItems) {
-                     return FilledButton.tonal(
-                        onPressed: () => _showAddItemDialog(context, activeItems),
-                        child: const Text('Add Item'),
-                     );
-                   },
-                   loading: () => const Center(child: CircularProgressIndicator()),
-                   error: (e, s) => Text('Error: $e'),
-                ),
-                const SizedBox(height: 16),
-                FilledButton(
-                  onPressed: _selectedCustomerId == null || _items.isEmpty ? null : _saveDocument,
-                  child: const Text('Save Document'),
-                )
-              ],
+              ),
             ),
           );
         },
