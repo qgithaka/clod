@@ -75,8 +75,8 @@ Correctness, data durability, and ledger integrity always win over flashy shortc
 - Write tests together with (or before) the implementation.
 - Prefer clean, readable, well-typed Dart code adhering to effective Dart guidelines.
 - Follow the package and directory structure defined in the architecture specification.
-- When a task is finished, mark it done in `PROGRESS.md` (see Section 10) and stop to wait for human review if required.
-- Do not open a pull request or merge anything yourself unless explicitly instructed.
+- When a task is finished, mark it done in `PROGRESS.md` (see Section 10) and commit the progress update.
+- When all tasks in a milestone are finished, push the feature branch to origin, open a Pull Request targeting `development` using `gh pr create` with the mandatory PR format (see Section 6), and notify the human.
 
 ---
 
@@ -133,10 +133,11 @@ Provides the foundational local SQLite schema required for credit-native ledger 
 
 ---
 
-## 6. Pull Request Summary Rules (Mandatory)
+## 6. Pull Request & Merge Message Rules (Mandatory)
 
-When asked to generate a PR summary, produce a message that can be used as a squash commit.  
-Fetch the commits yourself with `git log development..HEAD` (or equivalent).
+The AI agent is responsible for creating Pull Requests (PRs) via the GitHub CLI (`gh pr create`) when a milestone is completed.
+
+When creating a PR or generating a squash merge commit message, you must follow this exact format:
 
 ### Exact Format
 
@@ -152,7 +153,8 @@ pr(`/`): <short description with backticked filename>
 - Scope is always `` `/` ``
 - Exactly two single-line paragraphs
 - No bullet points or lists
-- Synthesize the entire PR into one coherent summary
+- Synthesize the entire PR / Milestone into one coherent summary
+- When merging via GitHub or locally, the pull request title and description will serve directly as the merge commit message.
 
 ---
 
