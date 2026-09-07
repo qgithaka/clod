@@ -119,7 +119,7 @@ class _BusinessProfileViewState extends ConsumerState<BusinessProfileView> {
                   ),
                   const SizedBox(height: 16),
                   DropdownButtonFormField<String>(
-                    value: _currencyCode,
+                    initialValue: _currencyCode,
                     decoration: const InputDecoration(labelText: 'Currency', border: OutlineInputBorder()),
                     items: const [
                       DropdownMenuItem(value: 'USD', child: Text('USD')),
