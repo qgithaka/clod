@@ -8,6 +8,7 @@ import '../presentation/views/business_profile_view.dart';
 
 import '../presentation/views/customers_view.dart';
 import '../presentation/views/customer_form_view.dart';
+import '../presentation/views/customer_detail_view.dart';
 
 final _shellNavigatorDashboardKey = GlobalKey<NavigatorState>(debugLabel: 'dashboard');
 final _shellNavigatorCustomersKey = GlobalKey<NavigatorState>(debugLabel: 'customers');
@@ -51,10 +52,22 @@ final routerProvider = Provider<GoRouter>((ref) {
                 builder: (context, state) => const CustomersView(),
                 routes: [
                   GoRoute(
+                    path: 'new',
+                    builder: (context, state) => const CustomerFormView(customerId: 'new'),
+                  ),
+                  GoRoute(
                     path: ':id',
-                    builder: (context, state) => CustomerFormView(
-                      customerId: state.pathParameters['id'],
+                    builder: (context, state) => CustomerDetailView(
+                      customerId: int.parse(state.pathParameters['id']!),
                     ),
+                    routes: [
+                      GoRoute(
+                        path: 'edit',
+                        builder: (context, state) => CustomerFormView(
+                          customerId: state.pathParameters['id'],
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
