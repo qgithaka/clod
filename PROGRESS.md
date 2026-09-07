@@ -145,10 +145,10 @@ Provides professional document creation for quotes and invoices. Supports one-cl
 
 ---
 
-## M07 – Dashboard & Analytics Reporting ⏳ PENDING
+## M07 – Dashboard & Analytics Reporting 🔄 IN PROGRESS
 
 **Branch:** `feat/m07-dashboard-reporting`  
-**Status:** Pending M06
+**Status:** Active – agent is working here
 
 ### Context
 Provides the merchant with actionable real-time business intelligence: daily revenue totals, outstanding debt summaries, low-stock alerts, and an offline Profit & Loss reporting engine with Cash vs Accrual views.

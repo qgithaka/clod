@@ -14,6 +14,7 @@ import '../presentation/views/dashboard_view.dart';
 import '../presentation/views/catalogue_view.dart';
 import '../presentation/views/item_form_view.dart';
 import '../presentation/views/pos_view.dart';
+import '../presentation/views/profit_loss_view.dart';
 import '../presentation/views/back_office_view.dart';
 import '../presentation/views/document_list_view.dart';
 import '../presentation/views/document_form_view.dart';
@@ -50,6 +51,12 @@ final routerProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: '/dashboard',
                 builder: (context, state) => const DashboardView(),
+                routes: [
+                  GoRoute(
+                    path: 'pl',
+                    builder: (context, state) => const ProfitLossView(),
+                  ),
+                ],
               ),
             ],
           ),
