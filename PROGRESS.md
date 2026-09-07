@@ -107,22 +107,22 @@ Constructs the high-speed, touch-optimized checkout experience. Manages an in-me
 
 ---
 
-## M05 – Back-Office Operations ⏳ PENDING
+## M05 – Back-Office Operations 🔄 IN PROGRESS
 
 **Branch:** `feat/m05-back-office`  
-**Status:** Pending M04
+**Status:** Active – agent is working here
 
 ### Context
 Handles inventory restocking via Purchase Orders with automated weighted average cost updates, stock shrinkage logging (damage, expired, lost), and offline business expense tracking.
 
 ### Tasks
 
-- [ ] Implement Purchase Order workflow (Draft -> Ordered -> Received)
-- [ ] On PO Received: atomically update stock quantities, recalculate average buying cost, insert stock movements
-- [ ] Build Stock Issues / Shrinkage logging screen (Damaged / Expired / Lost / Adjustment)
-- [ ] Build Expense Tracking module (Category, Amount, Date, Note)
-- [ ] Build Expense List screen with date range filters
-- [ ] Write unit tests for weighted average cost calculation and shrinkage deductions
+- [x] Implement Purchase Order workflow (Draft -> Ordered -> Received)
+- [x] On PO Received: atomically update stock quantities, recalculate average buying cost, insert stock movements
+- [x] Build Stock Issues / Shrinkage logging screen (Damaged / Expired / Lost / Adjustment)
+- [x] Build Expense Tracking module (Category, Amount, Date, Note)
+- [x] Build Expense List screen with date range filters
+- [x] Write unit tests for weighted average cost calculation and shrinkage deductions
 
 ---
 

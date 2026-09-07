@@ -18,6 +18,7 @@ class ResponsiveShell extends StatelessWidget {
     NavigationDestination(icon: Icon(Icons.inventory_2), label: 'Catalogue'),
     NavigationDestination(icon: Icon(Icons.point_of_sale), label: 'POS'),
     NavigationDestination(icon: Icon(Icons.receipt_long), label: 'Documents'),
+    NavigationDestination(icon: Icon(Icons.business_center), label: 'Back-Office'),
     NavigationDestination(icon: Icon(Icons.settings), label: 'Settings'),
   ];
 
@@ -27,6 +28,7 @@ class ResponsiveShell extends StatelessWidget {
     NavigationRailDestination(icon: Icon(Icons.inventory_2), label: Text('Catalogue')),
     NavigationRailDestination(icon: Icon(Icons.point_of_sale), label: Text('POS')),
     NavigationRailDestination(icon: Icon(Icons.receipt_long), label: Text('Documents')),
+    NavigationRailDestination(icon: Icon(Icons.business_center), label: Text('Back-Office')),
     NavigationRailDestination(icon: Icon(Icons.settings), label: Text('Settings')),
   ];
 

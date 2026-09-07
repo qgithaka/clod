@@ -14,12 +14,14 @@ import '../presentation/views/dashboard_view.dart';
 import '../presentation/views/catalogue_view.dart';
 import '../presentation/views/item_form_view.dart';
 import '../presentation/views/pos_view.dart';
+import '../presentation/views/back_office_view.dart';
 
 final _shellNavigatorDashboardKey = GlobalKey<NavigatorState>(debugLabel: 'dashboard');
 final _shellNavigatorCustomersKey = GlobalKey<NavigatorState>(debugLabel: 'customers');
 final _shellNavigatorCatalogueKey = GlobalKey<NavigatorState>(debugLabel: 'catalogue');
 final _shellNavigatorPOSKey = GlobalKey<NavigatorState>(debugLabel: 'pos');
 final _shellNavigatorDocumentsKey = GlobalKey<NavigatorState>(debugLabel: 'documents');
+final _shellNavigatorBackOfficeKey = GlobalKey<NavigatorState>(debugLabel: 'backoffice');
 final _shellNavigatorSettingsKey = GlobalKey<NavigatorState>(debugLabel: 'settings');
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -112,6 +114,15 @@ final routerProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: '/documents',
                 builder: (context, state) => const PlaceholderView(title: 'Documents'),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorBackOfficeKey,
+            routes: [
+              GoRoute(
+                path: '/back-office',
+                builder: (context, state) => const BackOfficeView(),
               ),
             ],
           ),
