@@ -16,9 +16,19 @@ foreach ($path in $isccPaths) {
     }
 }
 
+
+Write-Host "Extracting version from pubspec.yaml..."
+$pubspec = Get-Content pubspec.yaml -Raw
+$versionMatch = [regex]::Match($pubspec, '(?m)^version:\s*(?<version>[\d\.]+)')
+$appVersion = "1.0.0"
+if ($versionMatch.Success) {
+    $appVersion = $versionMatch.Groups['version'].Value
+}
+Write-Host "App Version: $appVersion"
+
 if ($isccExe) {
     Write-Host "Compiling Inno Setup Installer..."
-    & $isccExe "windows\packaging\inno_setup.iss"
+    & $isccExe "/DMyAppVersion=$appVersion" "windows\packaging\inno_setup.iss"
     Write-Host "Windows Installer Complete! Outputs are in windows\packaging\Output\"
 } else {
     Write-Host "Inno Setup not found. Built executable is in build\windows\x64\runner\Release\ but installer was not created."

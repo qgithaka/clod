@@ -15,11 +15,13 @@ void main() {
 
   test('BusinessProfileDao can insert and get profile', () async {
     final dao = db.businessProfileDao;
-    
-    await dao.insertOrUpdate(BusinessProfileCompanion.insert(
-      name: 'Test Business',
-      updatedAt: 1234567890,
-    ));
+
+    await dao.insertOrUpdate(
+      BusinessProfileCompanion.insert(
+        name: 'Test Business',
+        updatedAt: 1234567890,
+      ),
+    );
 
     final profile = await dao.getProfile();
     expect(profile, isNotNull);
@@ -28,12 +30,14 @@ void main() {
 
   test('CustomerDao can insert and get customers', () async {
     final dao = db.customerDao;
-    
-    await dao.insertCustomer(CustomersCompanion.insert(
-      name: 'Alice',
-      createdAt: 1000,
-      updatedAt: 1000,
-    ));
+
+    await dao.insertCustomer(
+      CustomersCompanion.insert(
+        name: 'Alice',
+        createdAt: 1000,
+        updatedAt: 1000,
+      ),
+    );
 
     final customers = await dao.getAllCustomers();
     expect(customers.length, 1);

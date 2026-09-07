@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -38,17 +39,37 @@ class CreditStatementService {
                 pw.Column(
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
-                    if (businessProfile != null) pw.Text(businessProfile.name, style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold)),
-                    if (businessProfile?.phone != null) pw.Text('Phone: ${businessProfile!.phone}'),
-                    if (businessProfile?.address != null) pw.Text('Address: ${businessProfile!.address}'),
+                    if (businessProfile != null)
+                      pw.Text(
+                        businessProfile.name,
+                        style: const pw.TextStyle(
+                          fontSize: 24,
+                          fontWeight: pw.FontWeight.bold,
+                        ),
+                      ),
+                    if (businessProfile?.phone != null)
+                      pw.Text('Phone: ${businessProfile!.phone}'),
+                    if (businessProfile?.address != null)
+                      pw.Text('Address: ${businessProfile!.address}'),
                   ],
                 ),
-                if (logoImage != null) pw.Container(width: 80, height: 80, child: pw.Image(logoImage)),
+                if (logoImage != null)
+                  pw.Container(
+                    width: 80,
+                    height: 80,
+                    child: pw.Image(logoImage),
+                  ),
               ],
             ),
           ),
           pw.SizedBox(height: 20),
-          pw.Text('CREDIT STATEMENT', style: pw.TextStyle(fontSize: 20, fontWeight: pw.FontWeight.bold)),
+          pw.Text(
+            'CREDIT STATEMENT',
+            style: const pw.TextStyle(
+              fontSize: 20,
+              fontWeight: pw.FontWeight.bold,
+            ),
+          ),
           pw.SizedBox(height: 10),
           pw.Divider(),
           pw.Row(
@@ -57,7 +78,10 @@ class CreditStatementService {
               pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
-                  pw.Text('Customer:', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                  pw.Text(
+                    'Customer:',
+                    style: const pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                  ),
                   pw.Text(customer.name),
                   if (customer.phone != null) pw.Text(customer.phone!),
                   if (customer.address != null) pw.Text(customer.address!),
@@ -66,9 +90,17 @@ class CreditStatementService {
               pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.end,
                 children: [
-                  pw.Text('Date: ${DateTime.now().toIso8601String().split('T')[0]}'),
+                  pw.Text(
+                    'Date: ${DateTime.now().toIso8601String().split('T')[0]}',
+                  ),
                   pw.SizedBox(height: 10),
-                  pw.Text('Total Outstanding: ${customer.currentBalance.format()}', style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 16)),
+                  pw.Text(
+                    'Total Outstanding: ${customer.currentBalance.format()}',
+                    style: const pw.TextStyle(
+                      fontWeight: pw.FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -80,7 +112,8 @@ class CreditStatementService {
               final isPayment = txn.type == 'PAYMENT';
               return [
                 txn.createdAt.toIso8601String().split('T')[0],
-                txn.referenceNote ?? (isPayment ? 'Payment Received' : 'Sale Charged'),
+                txn.referenceNote ??
+                    (isPayment ? 'Payment Received' : 'Sale Charged'),
                 txn.type,
                 (isPayment ? '-' : '+') + txn.amount.format(),
               ];
@@ -91,11 +124,18 @@ class CreditStatementService {
     );
 
     final output = await getTemporaryDirectory();
-    final file = File(p.join(output.path, 'statement_${customer.name.replaceAll(' ', '_')}.pdf'));
+    final file = File(
+      p.join(
+        output.path,
+        'statement_${customer.name.replaceAll(' ', '_')}.pdf',
+      ),
+    );
     await file.writeAsBytes(await pdf.save());
 
     // ignore: deprecated_member_use
-    await Share.shareXFiles([XFile(file.path)], text: 'Credit Statement for ${customer.name}');
+    await Share.shareXFiles([
+      XFile(file.path),
+    ], text: 'Credit Statement for ${customer.name}');
   }
 }
 

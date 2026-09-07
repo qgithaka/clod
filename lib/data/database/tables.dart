@@ -18,7 +18,8 @@ class Customers extends Table {
   TextColumn get phone => text().nullable()();
   TextColumn get address => text().nullable()();
   IntColumn get creditLimitCents => integer().withDefault(const Constant(0))();
-  IntColumn get currentBalanceCents => integer().withDefault(const Constant(0))();
+  IntColumn get currentBalanceCents =>
+      integer().withDefault(const Constant(0))();
   BoolColumn get isActive => boolean().withDefault(const Constant(true))();
   IntColumn get createdAt => integer()();
   IntColumn get updatedAt => integer()();
@@ -64,8 +65,10 @@ class SaleItems extends Table {
 class CreditTransactions extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get customerId => integer().references(Customers, #id)();
-  IntColumn get amountCents => integer()(); // Positive for debt (sale), negative for repayment
-  IntColumn get referenceSaleId => integer().nullable().references(Sales, #id)();
+  IntColumn get amountCents =>
+      integer()(); // Positive for debt (sale), negative for repayment
+  IntColumn get referenceSaleId =>
+      integer().nullable().references(Sales, #id)();
   TextColumn get note => text().nullable()();
   IntColumn get createdAt => integer()();
 }
@@ -107,7 +110,8 @@ class Expenses extends Table {
 class Documents extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get type => text()(); // 'quote' or 'invoice'
-  TextColumn get status => text()(); // 'draft', 'sent', 'accepted', 'paid', 'cancelled'
+  TextColumn get status =>
+      text()(); // 'draft', 'sent', 'accepted', 'paid', 'cancelled'
   IntColumn get customerId => integer().references(Customers, #id)();
   IntColumn get totalAmountCents => integer()();
   TextColumn get contentJson => text()(); // serialized line items

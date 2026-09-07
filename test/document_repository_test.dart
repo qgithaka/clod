@@ -27,7 +27,12 @@ void main() {
     final customer = customers.first;
 
     final items = [
-      DocumentLineItem(itemId: 1, itemName: 'Test Item', quantity: 2, unitPriceCents: 500)
+      DocumentLineItem(
+        itemId: 1,
+        itemName: 'Test Item',
+        quantity: 2,
+        unitPriceCents: 500,
+      ),
     ];
 
     // 1. Create quote

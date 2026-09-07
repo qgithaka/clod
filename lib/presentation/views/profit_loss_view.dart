@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../core/money.dart';
 import '../../data/repositories/analytics_repository.dart';
 
@@ -12,18 +13,27 @@ class DateRangeNotifier extends Notifier<DateTimeRange> {
       end: DateTime(now.year, now.month, now.day, 23, 59, 59),
     );
   }
+
   void setRange(DateTimeRange range) => state = range;
 }
-final dateRangeProvider = NotifierProvider<DateRangeNotifier, DateTimeRange>(DateRangeNotifier.new);
+
+final dateRangeProvider = NotifierProvider<DateRangeNotifier, DateTimeRange>(
+  DateRangeNotifier.new,
+);
 
 class CashBasisNotifier extends Notifier<bool> {
   @override
   bool build() => false;
   void toggle(bool v) => state = v;
 }
-final cashBasisProvider = NotifierProvider<CashBasisNotifier, bool>(CashBasisNotifier.new);
 
-final profitLossProvider = FutureProvider.autoDispose<ProfitAndLossReport>((ref) {
+final cashBasisProvider = NotifierProvider<CashBasisNotifier, bool>(
+  CashBasisNotifier.new,
+);
+
+final profitLossProvider = FutureProvider.autoDispose<ProfitAndLossReport>((
+  ref,
+) {
   final repo = ref.watch(analyticsRepositoryProvider);
   final range = ref.watch(dateRangeProvider);
   final cashBasis = ref.watch(cashBasisProvider);
@@ -59,7 +69,8 @@ class ProfitLossView extends ConsumerWidget {
               const Text('Cash Basis'),
               Switch(
                 value: cashBasis,
-                onChanged: (v) => ref.read(cashBasisProvider.notifier).toggle(v),
+                onChanged: (v) =>
+                    ref.read(cashBasisProvider.notifier).toggle(v),
               ),
             ],
           ),
@@ -73,10 +84,21 @@ class ProfitLossView extends ConsumerWidget {
                 initialDateRange: range,
               );
               if (picked != null) {
-                ref.read(dateRangeProvider.notifier).setRange(DateTimeRange(
-                  start: picked.start,
-                  end: DateTime(picked.end.year, picked.end.month, picked.end.day, 23, 59, 59),
-                ));
+                ref
+                    .read(dateRangeProvider.notifier)
+                    .setRange(
+                      DateTimeRange(
+                        start: picked.start,
+                        end: DateTime(
+                          picked.end.year,
+                          picked.end.month,
+                          picked.end.day,
+                          23,
+                          59,
+                          59,
+                        ),
+                      ),
+                    );
               }
             },
           ),
@@ -87,13 +109,28 @@ class ProfitLossView extends ConsumerWidget {
           return ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
-              _buildRow('Revenue', Money(report.revenueCents).format(), isBold: true),
+              _buildRow(
+                'Revenue',
+                Money(report.revenueCents).format(),
+                isBold: true,
+              ),
               const Divider(),
-              _buildRow('Cost of Goods Sold (COGS)', '- ${Money(report.cogsCents).format()}'),
+              _buildRow(
+                'Cost of Goods Sold (COGS)',
+                '- ${Money(report.cogsCents).format()}',
+              ),
               const Divider(),
-              _buildRow('Gross Profit', Money(report.grossProfitCents).format(), isBold: true, color: Colors.blue),
+              _buildRow(
+                'Gross Profit',
+                Money(report.grossProfitCents).format(),
+                isBold: true,
+                color: Colors.blue,
+              ),
               const Divider(thickness: 2),
-              _buildRow('Expenses', '- ${Money(report.expensesCents).format()}'),
+              _buildRow(
+                'Expenses',
+                '- ${Money(report.expensesCents).format()}',
+              ),
               const Divider(),
               _buildRow(
                 'Net Profit',
@@ -109,10 +146,16 @@ class ProfitLossView extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Current Stock Valuation (at cost)', style: Theme.of(context).textTheme.titleMedium),
+                      Text(
+                        'Current Stock Valuation (at cost)',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
                       const SizedBox(height: 8),
                       stockValAsync.when(
-                        data: (val) => Text(Money(val).format(), style: Theme.of(context).textTheme.headlineSmall),
+                        data: (val) => Text(
+                          Money(val).format(),
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
                         loading: () => const CircularProgressIndicator(),
                         error: (e, s) => Text('Error: $e'),
                       ),
@@ -129,7 +172,13 @@ class ProfitLossView extends ConsumerWidget {
     );
   }
 
-  Widget _buildRow(String label, String value, {bool isBold = false, Color? color, double size = 16}) {
+  Widget _buildRow(
+    String label,
+    String value, {
+    bool isBold = false,
+    Color? color,
+    double size = 16,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: Row(

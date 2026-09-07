@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../database/app_database.dart';
 import 'business_profile_repository.dart';
 
@@ -38,20 +39,36 @@ class AnalyticsRepository {
 
   Future<DashboardMetrics> getDashboardMetrics() async {
     final now = DateTime.now();
-    final startOfDay = DateTime(now.year, now.month, now.day).toUtc().millisecondsSinceEpoch;
-    final endOfDay = DateTime(now.year, now.month, now.day, 23, 59, 59, 999).toUtc().millisecondsSinceEpoch;
+    final startOfDay = DateTime(
+      now.year,
+      now.month,
+      now.day,
+    ).toUtc().millisecondsSinceEpoch;
+    final endOfDay = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      23,
+      59,
+      59,
+      999,
+    ).toUtc().millisecondsSinceEpoch;
 
     // Today's Revenue (sum of totalAmountCents for sales today)
     final salesRevenueQuery = _db.select(_db.sales)
       ..where((s) => s.createdAt.isBetweenValues(startOfDay, endOfDay));
     final sales = await salesRevenueQuery.get();
-    int todaysRevenue = sales.fold(0, (sum, sale) => sum + sale.totalAmountCents);
+    int todaysRevenue = sales.fold(
+      0,
+      (sum, sale) => sum + sale.totalAmountCents,
+    );
 
     // Total Outstanding Debt (sum of balances > 0)
     final debtQuery = _db.selectOnly(_db.customers)
       ..addColumns([_db.customers.currentBalanceCents.sum()]);
     final debtResult = await debtQuery.getSingle();
-    final totalDebt = debtResult.read(_db.customers.currentBalanceCents.sum())?.toInt() ?? 0;
+    final totalDebt =
+        debtResult.read(_db.customers.currentBalanceCents.sum())?.toInt() ?? 0;
 
     // Low Stock Count
     final lowStockQuery = _db.select(_db.items)
@@ -60,12 +77,17 @@ class AnalyticsRepository {
 
     return DashboardMetrics(
       todaysRevenueCents: todaysRevenue,
-      totalOutstandingDebtCents: totalDebt, // Assuming balance is positive when they owe us
+      totalOutstandingDebtCents:
+          totalDebt, // Assuming balance is positive when they owe us
       lowStockCount: lowStockItems.length,
     );
   }
 
-  Future<ProfitAndLossReport> getProfitAndLoss(int startDate, int endDate, {bool isCashBasis = false}) async {
+  Future<ProfitAndLossReport> getProfitAndLoss(
+    int startDate,
+    int endDate, {
+    bool isCashBasis = false,
+  }) async {
     // 1. Revenue
     int revenue = 0;
     int cogs = 0;
@@ -81,57 +103,77 @@ class AnalyticsRepository {
           revenue += sale.totalAmountCents;
         }
       }
-      
+
       // We also need to add repayments made in the period
       final repaymentsQuery = _db.select(_db.creditTransactions)
-        ..where((t) => t.amountCents.isSmallerThanValue(0) & t.createdAt.isBetweenValues(startDate, endDate));
+        ..where(
+          (t) =>
+              t.amountCents.isSmallerThanValue(0) &
+              t.createdAt.isBetweenValues(startDate, endDate),
+        );
       final repayments = await repaymentsQuery.get();
       revenue += repayments.fold(0, (sum, t) => sum + t.amountCents.abs());
-      
+
       // COGS is tricky on cash basis, but typically we'll just use the standard COGS for the items sold
       final saleIds = salesList.map((s) => s.id).toList();
       if (saleIds.isNotEmpty) {
-        final itemsQuery = _db.select(_db.saleItems)..where((i) => i.saleId.isIn(saleIds));
+        final itemsQuery = _db.select(_db.saleItems)
+          ..where((i) => i.saleId.isIn(saleIds));
         final soldItems = await itemsQuery.get();
         for (var item in soldItems) {
-            final masterItem = await (_db.select(_db.items)..where((i) => i.id.equals(item.itemId))).getSingle();
-            cogs += (item.quantity * (masterItem.buyingPriceCents ?? 0));
+          final masterItem = await (_db.select(
+            _db.items,
+          )..where((i) => i.id.equals(item.itemId))).getSingle();
+          cogs += (item.quantity * (masterItem.buyingPriceCents ?? 0));
         }
       }
     } else {
       // Accrual basis
       revenue = salesList.fold(0, (sum, sale) => sum + sale.totalAmountCents);
-      
+
       final saleIds = salesList.map((s) => s.id).toList();
       if (saleIds.isNotEmpty) {
-        final itemsQuery = _db.select(_db.saleItems)..where((i) => i.saleId.isIn(saleIds));
+        final itemsQuery = _db.select(_db.saleItems)
+          ..where((i) => i.saleId.isIn(saleIds));
         final soldItems = await itemsQuery.get();
         for (var item in soldItems) {
-            final masterItem = await (_db.select(_db.items)..where((i) => i.id.equals(item.itemId))).getSingle();
-            cogs += (item.quantity * (masterItem.buyingPriceCents ?? 0));
+          final masterItem = await (_db.select(
+            _db.items,
+          )..where((i) => i.id.equals(item.itemId))).getSingle();
+          cogs += (item.quantity * (masterItem.buyingPriceCents ?? 0));
         }
       }
     }
 
     // Shrinkage cost (adds to COGS or Expenses? usually COGS or a separate expense. Let's add to Expenses)
     final shrinkageQuery = _db.select(_db.stockMovements)
-      ..where((m) => m.reason.isIn(['damaged', 'expired', 'lost']) & m.createdAt.isBetweenValues(startDate, endDate));
+      ..where(
+        (m) =>
+            m.reason.isIn(['damaged', 'expired', 'lost']) &
+            m.createdAt.isBetweenValues(startDate, endDate),
+      );
     final shrinkageList = await shrinkageQuery.get();
-    
-    // We need unit costs for shrinkage. 
+
+    // We need unit costs for shrinkage.
     int shrinkageCost = 0;
     for (var shrink in shrinkageList) {
-       final item = await (_db.select(_db.items)..where((i) => i.id.equals(shrink.itemId))).getSingleOrNull();
-       if (item != null) {
-           shrinkageCost += shrink.quantityChange.abs() * (item.buyingPriceCents ?? 0);
-       }
+      final item = await (_db.select(
+        _db.items,
+      )..where((i) => i.id.equals(shrink.itemId))).getSingleOrNull();
+      if (item != null) {
+        shrinkageCost +=
+            shrink.quantityChange.abs() * (item.buyingPriceCents ?? 0);
+      }
     }
 
     // 3. Expenses
     final expensesQuery = _db.select(_db.expenses)
       ..where((e) => e.occurredAt.isBetweenValues(startDate, endDate));
     final expensesList = await expensesQuery.get();
-    int operatingExpenses = expensesList.fold(0, (sum, e) => sum + e.amountCents);
+    int operatingExpenses = expensesList.fold(
+      0,
+      (sum, e) => sum + e.amountCents,
+    );
 
     final totalExpenses = operatingExpenses + shrinkageCost;
     final grossProfit = revenue - cogs;
@@ -150,11 +192,15 @@ class AnalyticsRepository {
     final items = await _db.select(_db.items).get();
     if (retail) {
       int val = 0;
-      for (var i in items) val += ((i.stockQuantity ?? 0) * i.sellingPriceCents);
+      for (var i in items) {
+        val += ((i.stockQuantity ?? 0) * i.sellingPriceCents);
+      }
       return val;
     } else {
       int val = 0;
-      for (var i in items) val += ((i.stockQuantity ?? 0) * (i.buyingPriceCents ?? 0));
+      for (var i in items) {
+        val += ((i.stockQuantity ?? 0) * (i.buyingPriceCents ?? 0));
+      }
       return val;
     }
   }
@@ -164,6 +210,8 @@ final analyticsRepositoryProvider = Provider<AnalyticsRepository>((ref) {
   return AnalyticsRepository(ref.watch(databaseProvider));
 });
 
-final dashboardMetricsProvider = FutureProvider.autoDispose<DashboardMetrics>((ref) {
+final dashboardMetricsProvider = FutureProvider.autoDispose<DashboardMetrics>((
+  ref,
+) {
   return ref.watch(analyticsRepositoryProvider).getDashboardMetrics();
 });

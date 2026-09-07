@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../data/repositories/customer_repository.dart';
 
 class CustomersView extends ConsumerStatefulWidget {
@@ -31,7 +32,8 @@ class _CustomersViewState extends ConsumerState<CustomersView> {
                 border: OutlineInputBorder(),
                 filled: true,
               ),
-              onChanged: (val) => setState(() => _searchQuery = val.toLowerCase()),
+              onChanged: (val) =>
+                  setState(() => _searchQuery = val.toLowerCase()),
             ),
           ),
         ),
@@ -40,7 +42,7 @@ class _CustomersViewState extends ConsumerState<CustomersView> {
         data: (customers) {
           final filtered = customers.where((c) {
             return c.name.toLowerCase().contains(_searchQuery) ||
-                   (c.phone != null && c.phone!.contains(_searchQuery));
+                (c.phone != null && c.phone!.contains(_searchQuery));
           }).toList();
 
           if (filtered.isEmpty) {
@@ -53,12 +55,17 @@ class _CustomersViewState extends ConsumerState<CustomersView> {
               final customer = filtered[index];
               final hasDebt = customer.currentBalance.cents > 0;
               return ListTile(
-                leading: CircleAvatar(child: Text(customer.name[0].toUpperCase())),
+                leading: CircleAvatar(
+                  child: Text(customer.name[0].toUpperCase()),
+                ),
                 title: Text(customer.name),
                 subtitle: Text(customer.phone ?? 'No phone'),
                 trailing: hasDebt
                     ? Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.errorContainer,
                           borderRadius: BorderRadius.circular(12),
@@ -66,7 +73,9 @@ class _CustomersViewState extends ConsumerState<CustomersView> {
                         child: Text(
                           customer.currentBalance.format(),
                           style: TextStyle(
-                            color: Theme.of(context).colorScheme.onErrorContainer,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onErrorContainer,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

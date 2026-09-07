@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../presentation/shell/responsive_shell.dart';
-import '../presentation/views/placeholder_view.dart';
 import '../presentation/views/business_profile_view.dart';
 
 import '../presentation/views/customers_view.dart';
@@ -20,13 +19,25 @@ import '../presentation/views/document_list_view.dart';
 import '../presentation/views/document_form_view.dart';
 import '../presentation/views/settings_view.dart';
 
-final _shellNavigatorDashboardKey = GlobalKey<NavigatorState>(debugLabel: 'dashboard');
-final _shellNavigatorCustomersKey = GlobalKey<NavigatorState>(debugLabel: 'customers');
-final _shellNavigatorCatalogueKey = GlobalKey<NavigatorState>(debugLabel: 'catalogue');
+final _shellNavigatorDashboardKey = GlobalKey<NavigatorState>(
+  debugLabel: 'dashboard',
+);
+final _shellNavigatorCustomersKey = GlobalKey<NavigatorState>(
+  debugLabel: 'customers',
+);
+final _shellNavigatorCatalogueKey = GlobalKey<NavigatorState>(
+  debugLabel: 'catalogue',
+);
 final _shellNavigatorPOSKey = GlobalKey<NavigatorState>(debugLabel: 'pos');
-final _shellNavigatorDocumentsKey = GlobalKey<NavigatorState>(debugLabel: 'documents');
-final _shellNavigatorBackOfficeKey = GlobalKey<NavigatorState>(debugLabel: 'backoffice');
-final _shellNavigatorSettingsKey = GlobalKey<NavigatorState>(debugLabel: 'settings');
+final _shellNavigatorDocumentsKey = GlobalKey<NavigatorState>(
+  debugLabel: 'documents',
+);
+final _shellNavigatorBackOfficeKey = GlobalKey<NavigatorState>(
+  debugLabel: 'backoffice',
+);
+final _shellNavigatorSettingsKey = GlobalKey<NavigatorState>(
+  debugLabel: 'settings',
+);
 
 final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
@@ -70,7 +81,8 @@ final routerProvider = Provider<GoRouter>((ref) {
                 routes: [
                   GoRoute(
                     path: 'new',
-                    builder: (context, state) => const CustomerFormView(customerId: 'new'),
+                    builder: (context, state) =>
+                        const CustomerFormView(customerId: 'new'),
                   ),
                   GoRoute(
                     path: ':id',
@@ -99,11 +111,13 @@ final routerProvider = Provider<GoRouter>((ref) {
                 routes: [
                   GoRoute(
                     path: 'new',
-                    builder: (context, state) => const ItemFormView(itemId: 'new'),
+                    builder: (context, state) =>
+                        const ItemFormView(itemId: 'new'),
                   ),
                   GoRoute(
                     path: ':id',
-                    builder: (context, state) => ItemFormView(itemId: state.pathParameters['id']!),
+                    builder: (context, state) =>
+                        ItemFormView(itemId: state.pathParameters['id']!),
                   ),
                 ],
               ),
@@ -131,7 +145,7 @@ final routerProvider = Provider<GoRouter>((ref) {
                       documentType: state.extra as String? ?? 'quote',
                     ),
                   ),
-                ]
+                ],
               ),
             ],
           ),

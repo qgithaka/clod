@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../core/money.dart';
 import '../../data/repositories/item_repository.dart';
 import '../../domain/entities/item_entity.dart';
@@ -16,7 +17,7 @@ class ItemFormView extends ConsumerStatefulWidget {
 class _ItemFormViewState extends ConsumerState<ItemFormView> {
   final _formKey = GlobalKey<FormState>();
   ItemType _type = ItemType.product;
-  
+
   final _nameController = TextEditingController();
   final _sellingPriceController = TextEditingController();
   final _buyingPriceController = TextEditingController();
@@ -38,9 +39,11 @@ class _ItemFormViewState extends ConsumerState<ItemFormView> {
     _existingItem = item;
     _type = item.type;
     _nameController.text = item.name;
-    _sellingPriceController.text = (item.sellingPrice.cents / 100).toStringAsFixed(2);
+    _sellingPriceController.text = (item.sellingPrice.cents / 100)
+        .toStringAsFixed(2);
     if (item.buyingPrice != null) {
-      _buyingPriceController.text = (item.buyingPrice!.cents / 100).toStringAsFixed(2);
+      _buyingPriceController.text = (item.buyingPrice!.cents / 100)
+          .toStringAsFixed(2);
     }
     if (item.stockQuantity != null) {
       _stockController.text = item.stockQuantity.toString();
@@ -54,7 +57,9 @@ class _ItemFormViewState extends ConsumerState<ItemFormView> {
   Widget build(BuildContext context) {
     if (widget.itemId != 'new') {
       final itemAsync = ref.watch(itemProvider(int.parse(widget.itemId)));
-      if (itemAsync.isLoading) return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      if (itemAsync.isLoading) {
+        return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      }
       if (itemAsync.hasValue && itemAsync.value != null) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (mounted) setState(() => _populate(itemAsync.value!));
@@ -70,10 +75,12 @@ class _ItemFormViewState extends ConsumerState<ItemFormView> {
             IconButton(
               icon: const Icon(Icons.delete),
               onPressed: () async {
-                await ref.read(itemRepositoryProvider).softDeleteItem(int.parse(widget.itemId));
+                await ref
+                    .read(itemRepositoryProvider)
+                    .softDeleteItem(int.parse(widget.itemId));
                 if (context.mounted) context.pop();
               },
-            )
+            ),
         ],
       ),
       body: Align(
@@ -83,72 +90,94 @@ class _ItemFormViewState extends ConsumerState<ItemFormView> {
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16),
             child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              DropdownButtonFormField<ItemType>(
-                initialValue: _type,
-                decoration: const InputDecoration(labelText: 'Item Type'),
-                items: const [
-                  DropdownMenuItem(value: ItemType.product, child: Text('Product (Physical)')),
-                  DropdownMenuItem(value: ItemType.service, child: Text('Service (Intangible)')),
-                ],
-                onChanged: (val) {
-                  if (val != null) setState(() => _type = val);
-                },
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _nameController,
-                decoration: const InputDecoration(labelText: 'Name'),
-                validator: (val) => val == null || val.isEmpty ? 'Required' : null,
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _sellingPriceController,
-                decoration: const InputDecoration(labelText: 'Selling Price', prefixText: '\$'),
-                keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                validator: (val) => val == null || val.isEmpty ? 'Required' : null,
-              ),
-              if (_type == ItemType.product) ...[
-                const SizedBox(height: 16),
-                TextFormField(
-                  controller: _buyingPriceController,
-                  decoration: const InputDecoration(labelText: 'Buying Price (Optional)', prefixText: '\$'),
-                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: _stockController,
-                        decoration: const InputDecoration(labelText: 'Stock Quantity'),
-                        keyboardType: TextInputType.number,
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  DropdownButtonFormField<ItemType>(
+                    initialValue: _type,
+                    decoration: const InputDecoration(labelText: 'Item Type'),
+                    items: const [
+                      DropdownMenuItem(
+                        value: ItemType.product,
+                        child: Text('Product (Physical)'),
+                      ),
+                      DropdownMenuItem(
+                        value: ItemType.service,
+                        child: Text('Service (Intangible)'),
+                      ),
+                    ],
+                    onChanged: (val) {
+                      if (val != null) setState(() => _type = val);
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: _nameController,
+                    decoration: const InputDecoration(labelText: 'Name'),
+                    validator: (val) =>
+                        val == null || val.isEmpty ? 'Required' : null,
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: _sellingPriceController,
+                    decoration: const InputDecoration(
+                      labelText: 'Selling Price',
+                      prefixText: '\$',
+                    ),
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
+                    validator: (val) =>
+                        val == null || val.isEmpty ? 'Required' : null,
+                  ),
+                  if (_type == ItemType.product) ...[
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _buyingPriceController,
+                      decoration: const InputDecoration(
+                        labelText: 'Buying Price (Optional)',
+                        prefixText: '\$',
+                      ),
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true,
                       ),
                     ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: TextFormField(
-                        controller: _thresholdController,
-                        decoration: const InputDecoration(labelText: 'Low Stock Alert At'),
-                        keyboardType: TextInputType.number,
-                      ),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            controller: _stockController,
+                            decoration: const InputDecoration(
+                              labelText: 'Stock Quantity',
+                            ),
+                            keyboardType: TextInputType.number,
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: TextFormField(
+                            controller: _thresholdController,
+                            decoration: const InputDecoration(
+                              labelText: 'Low Stock Alert At',
+                            ),
+                            keyboardType: TextInputType.number,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
-                ),
-              ],
-              const SizedBox(height: 32),
-              FilledButton(
-                onPressed: _save,
-                child: const Text('Save Item'),
+                  const SizedBox(height: 32),
+                  FilledButton(
+                    onPressed: _save,
+                    child: const Text('Save Item'),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
-      ),
-      ),
       ),
     );
   }
@@ -158,12 +187,12 @@ class _ItemFormViewState extends ConsumerState<ItemFormView> {
 
     final repo = ref.read(itemRepositoryProvider);
     final sellingPrice = double.tryParse(_sellingPriceController.text) ?? 0;
-    
+
     double? buyingPrice;
     if (_buyingPriceController.text.isNotEmpty) {
       buyingPrice = double.tryParse(_buyingPriceController.text);
     }
-    
+
     int? stock, threshold;
     if (_type == ItemType.product) {
       stock = int.tryParse(_stockController.text);

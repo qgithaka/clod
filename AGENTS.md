@@ -23,7 +23,18 @@ Correctness, data durability, and ledger integrity always win over flashy shortc
 
 ---
 
-## 2. Absolute Rules (Never Violate)
+
+## 2. Branching Strategy & Environments
+
+This project uses a strict, environment-mapped branching model.
+
+1. **`development`**: Integration branch. All new features and bug fixes (e.g., `feat/mXX-...` branches) merge here. 
+
+2. **`staging`**: Pre-release branch. Code merges from `development` into `staging` to trigger pre-release (RC) builds for QA and staging validation.
+3. **`production`**: Stable release branch. Code merges from `staging` into `production` to trigger formal, signed production releases to end users.
+4. **Agent Branches**: You must always work on `feat/mXX-...` or `fix/...` branches. Your PRs will always target `development`.
+
+## 3. Absolute Rules (Never Violate)
 
 1. **Never work directly on `production`, `main`, `staging`, or `development`.**  
    You may only commit to the current feature/milestone branch (`feat/mXX-...`).
@@ -57,7 +68,7 @@ Correctness, data durability, and ledger integrity always win over flashy shortc
 
 ---
 
-## 3. How You Receive Work
+## 4. How You Receive Work
 
 - The human will give you **one milestone at a time**.
 - You will receive:
@@ -69,18 +80,18 @@ Correctness, data durability, and ledger integrity always win over flashy shortc
 
 ---
 
-## 4. How You Must Work
+## 5. How You Must Work
 
 - Create **one atomic commit per task** listed in the milestone.
 - Write tests together with (or before) the implementation.
 - Prefer clean, readable, well-typed Dart code adhering to effective Dart guidelines.
 - Follow the package and directory structure defined in the architecture specification.
-- When a task is finished, mark it done in `PROGRESS.md` (see Section 10) and commit the progress update.
-- When all tasks in a milestone are finished, push the feature branch to origin, open a Pull Request targeting `development` using `gh pr create` with the mandatory PR format (see Section 6), and notify the human.
+- When a task is finished, mark it done in `PROGRESS.md` (see Section 11) and commit the progress update.
+- When all tasks in a milestone are finished, push the feature branch to origin, open a Pull Request targeting `development` using `gh pr create` with the mandatory PR format (see Section 7), and notify the human.
 
 ---
 
-## 5. Commit Message Rules (Mandatory)
+## 6. Commit Message Rules (Mandatory)
 
 When creating commits you must follow this exact format.  
 Do not wait for the user to provide a diff — inspect the changes yourself with `git status` and `git diff`.
@@ -133,7 +144,7 @@ Provides the foundational local SQLite schema required for credit-native ledger 
 
 ---
 
-## 6. Pull Request & Merge Message Rules (Mandatory)
+## 7. Pull Request & Merge Message Rules (Mandatory)
 
 The AI agent is responsible for creating Pull Requests (PRs) via the GitHub CLI (`gh pr create`) when a milestone is completed.
 
@@ -158,18 +169,18 @@ pr(`/`): <short description with backticked filename>
 
 ---
 
-## 7. Definition of Done for Any Task
+## 8. Definition of Done for Any Task
 
 A task is only done when:
 - The code is implemented
 - Tests covering the happy path and important edge cases pass
-- The change is committed with a message that strictly follows the rules in Section 5
+- The change is committed with a message that strictly follows the rules in Section 6
 - The corresponding checkbox in `PROGRESS.md` has been marked as done
 - You have not introduced code that belongs to a future milestone
 
 ---
 
-## 8. Where to Find the Current Work
+## 9. Where to Find the Current Work
 
 All milestones, branch names, tasks, and human review checklists live in:
 
@@ -180,7 +191,7 @@ Read the Global Working Rules, then locate the milestone marked **🔄 IN PROGRE
 
 ---
 
-## 9. When You Are Unsure
+## 10. When You Are Unsure
 
 If the specification is ambiguous, or if a requested change would violate any rule above:
 - Stop
@@ -191,7 +202,7 @@ Do not guess on matters of financial calculation, database schema integrity, or 
 
 ---
 
-## 10. How to Update PROGRESS.md (Mandatory)
+## 11. How to Update PROGRESS.md (Mandatory)
 
 You must keep `PROGRESS.md` accurate as you work. Follow this exact format.
 

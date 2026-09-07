@@ -18,18 +18,42 @@ class ResponsiveShell extends StatelessWidget {
     NavigationDestination(icon: Icon(Icons.inventory_2), label: 'Catalogue'),
     NavigationDestination(icon: Icon(Icons.point_of_sale), label: 'POS'),
     NavigationDestination(icon: Icon(Icons.receipt_long), label: 'Documents'),
-    NavigationDestination(icon: Icon(Icons.business_center), label: 'Back-Office'),
+    NavigationDestination(
+      icon: Icon(Icons.business_center),
+      label: 'Back-Office',
+    ),
     NavigationDestination(icon: Icon(Icons.settings), label: 'Settings'),
   ];
 
   static const List<NavigationRailDestination> _railDestinations = [
-    NavigationRailDestination(icon: Icon(Icons.dashboard), label: Text('Dashboard')),
-    NavigationRailDestination(icon: Icon(Icons.people), label: Text('Customers')),
-    NavigationRailDestination(icon: Icon(Icons.inventory_2), label: Text('Catalogue')),
-    NavigationRailDestination(icon: Icon(Icons.point_of_sale), label: Text('POS')),
-    NavigationRailDestination(icon: Icon(Icons.receipt_long), label: Text('Documents')),
-    NavigationRailDestination(icon: Icon(Icons.business_center), label: Text('Back-Office')),
-    NavigationRailDestination(icon: Icon(Icons.settings), label: Text('Settings')),
+    NavigationRailDestination(
+      icon: Icon(Icons.dashboard),
+      label: Text('Dashboard'),
+    ),
+    NavigationRailDestination(
+      icon: Icon(Icons.people),
+      label: Text('Customers'),
+    ),
+    NavigationRailDestination(
+      icon: Icon(Icons.inventory_2),
+      label: Text('Catalogue'),
+    ),
+    NavigationRailDestination(
+      icon: Icon(Icons.point_of_sale),
+      label: Text('POS'),
+    ),
+    NavigationRailDestination(
+      icon: Icon(Icons.receipt_long),
+      label: Text('Documents'),
+    ),
+    NavigationRailDestination(
+      icon: Icon(Icons.business_center),
+      label: Text('Back-Office'),
+    ),
+    NavigationRailDestination(
+      icon: Icon(Icons.settings),
+      label: Text('Settings'),
+    ),
   ];
 
   @override
@@ -54,7 +78,9 @@ class ResponsiveShell extends StatelessWidget {
                 NavigationRail(
                   selectedIndex: selectedIndex,
                   onDestinationSelected: onDestinationSelected,
-                  labelType: constraints.maxWidth >= 1200 ? NavigationRailLabelType.none : NavigationRailLabelType.all,
+                  labelType: constraints.maxWidth >= 1200
+                      ? NavigationRailLabelType.none
+                      : NavigationRailLabelType.all,
                   destinations: _railDestinations,
                   extended: constraints.maxWidth >= 1200,
                 ),

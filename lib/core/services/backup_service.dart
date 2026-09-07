@@ -1,9 +1,10 @@
 import 'dart:io';
+
 import 'package:encrypt/encrypt.dart';
-import 'package:archive/archive_io.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../data/database/app_database.dart';
 import '../../data/repositories/business_profile_repository.dart';
 
@@ -22,26 +23,36 @@ class BackupService {
   BackupService(this._db, {required this.tempDir, required this.docsDir});
 
   Future<File> createBackup(String encryptionPassword) async {
-    final timestamp = DateTime.now().toUtc().toIso8601String().replaceAll(':', '-');
-    final rawBackupPath = p.join(tempDir.path, 'clod_backup_raw_$timestamp.sqlite');
+    final timestamp = DateTime.now().toUtc().toIso8601String().replaceAll(
+      ':',
+      '-',
+    );
+    final rawBackupPath = p.join(
+      tempDir.path,
+      'clod_backup_raw_$timestamp.sqlite',
+    );
 
     // 1. Safe SQLite snapshot using VACUUM INTO
     await _db.customStatement("VACUUM INTO '$rawBackupPath'");
 
     // 2. Encrypt the file
     final fileBytes = await File(rawBackupPath).readAsBytes();
-    
+
     // Create an encrypter (AES-256)
     // In a real app we'd derive the key using PBKDF2 with a salt, but for simplicity:
-    final key = Key.fromUtf8(encryptionPassword.padRight(32, '0').substring(0, 32));
+    final key = Key.fromUtf8(
+      encryptionPassword.padRight(32, '0').substring(0, 32),
+    );
     final iv = IV.fromLength(16);
     final encrypter = Encrypter(AES(key));
 
     final encrypted = encrypter.encryptBytes(fileBytes, iv: iv);
 
     // 3. Save as .clodbackup
-    final backupFile = File(p.join(docsDir.path, 'ClodBackup_$timestamp.clodbackup'));
-    
+    final backupFile = File(
+      p.join(docsDir.path, 'ClodBackup_$timestamp.clodbackup'),
+    );
+
     // We prepend the IV to the file so we can decrypt it later
     final outBytes = <int>[...iv.bytes, ...encrypted.bytes];
     await backupFile.writeAsBytes(outBytes);
@@ -59,13 +70,18 @@ class BackupService {
     final ivBytes = bytes.sublist(0, 16);
     final encryptedBytes = bytes.sublist(16);
 
-    final key = Key.fromUtf8(encryptionPassword.padRight(32, '0').substring(0, 32));
+    final key = Key.fromUtf8(
+      encryptionPassword.padRight(32, '0').substring(0, 32),
+    );
     final iv = IV(ivBytes);
     final encrypter = Encrypter(AES(key));
 
     List<int> decryptedBytes;
     try {
-      decryptedBytes = encrypter.decryptBytes(Encrypted(encryptedBytes), iv: iv);
+      decryptedBytes = encrypter.decryptBytes(
+        Encrypted(encryptedBytes),
+        iv: iv,
+      );
     } catch (e) {
       throw Exception('Incorrect password or corrupted backup');
     }
@@ -87,14 +103,14 @@ class BackupService {
     // For Clod, we will:
     // 1. Close current DB
     await _db.close();
-    
+
     // 2. Overwrite the main DB file
     final mainDbFile = File(p.join(docsDir.path, 'clod_app.sqlite'));
     await File(tempDbPath).copy(mainDbFile.path);
 
     // 3. Cleanup temp
     await File(tempDbPath).delete();
-    
+
     // Note: The caller must trigger an app restart or a Riverpod provider invalidation of the appDatabaseProvider.
   }
 }

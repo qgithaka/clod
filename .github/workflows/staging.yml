@@ -1,0 +1,64 @@
+name: Staging Delivery
+
+on:
+  push:
+    branches:
+      - staging
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Build & Publish Staging RC
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Windows Installer
+        run: ./scripts/build_windows.ps1
+        shell: powershell
+
+      - name: Build Android
+        run: ./scripts/build_android.ps1
+        shell: powershell
+
+      - name: Extract Version
+        id: extract_version
+        run: |
+          $pubspec = Get-Content pubspec.yaml -Raw
+          $versionMatch = [regex]::Match($pubspec, '(?m)^version:\s*(?<version>[\d\.]+)')
+          $version = "1.0.0"
+          if ($versionMatch.Success) {
+              $version = $versionMatch.Groups['version'].Value
+          }
+          echo "version=$version" >> $env:GITHUB_OUTPUT
+        shell: powershell
+
+      - name: Publish Pre-Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Clod v${{ steps.extract_version.outputs.version }}-rc
+          tag_name: v${{ steps.extract_version.outputs.version }}-rc
+          prerelease: true
+          files: |
+            windows/packaging/Output/clod_installer.exe
+            build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab

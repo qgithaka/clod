@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../database/app_database.dart';
 import '../database/daos.dart';
 
@@ -26,7 +27,9 @@ class BusinessProfileRepository {
   }
 }
 
-final businessProfileRepositoryProvider = Provider<BusinessProfileRepository>((ref) {
+final businessProfileRepositoryProvider = Provider<BusinessProfileRepository>((
+  ref,
+) {
   final dao = ref.watch(businessProfileDaoProvider);
   return BusinessProfileRepository(dao);
 });

@@ -11,10 +11,20 @@ void main() {
     final notifier = container.read(cartProvider.notifier);
 
     final item1 = ItemEntity(
-      id: 1, name: 'Apple', type: ItemType.product, sellingPrice: const Money(150), isActive: true, createdAt: DateTime.now(),
+      id: 1,
+      name: 'Apple',
+      type: ItemType.product,
+      sellingPrice: const Money(150),
+      isActive: true,
+      createdAt: DateTime.now(),
     );
     final item2 = ItemEntity(
-      id: 2, name: 'Banana', type: ItemType.product, sellingPrice: const Money(200), isActive: true, createdAt: DateTime.now(),
+      id: 2,
+      name: 'Banana',
+      type: ItemType.product,
+      sellingPrice: const Money(200),
+      isActive: true,
+      createdAt: DateTime.now(),
     );
 
     notifier.addItem(item1);
@@ -42,7 +52,7 @@ void main() {
     notifier.removeItem(2);
     expect(container.read(cartProvider).items.length, 1);
     expect(container.read(cartProvider).total.cents, 200);
-    
+
     // update quantity to 0 removes it
     notifier.updateQuantity(1, 0);
     expect(container.read(cartProvider).items.isEmpty, true);
@@ -51,16 +61,22 @@ void main() {
   test('CartNotifier attach and detach customer', () {
     final container = ProviderContainer();
     final notifier = container.read(cartProvider.notifier);
-    
+
     final cust = CustomerEntity(
-      id: 1, name: 'John', currentBalance: const Money(0), creditLimit: const Money(1000), isActive: true, createdAt: DateTime.now(), updatedAt: DateTime.now(),
+      id: 1,
+      name: 'John',
+      currentBalance: const Money(0),
+      creditLimit: const Money(1000),
+      isActive: true,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
     );
-    
+
     expect(container.read(cartProvider).customer, isNull);
-    
+
     notifier.attachCustomer(cust);
     expect(container.read(cartProvider).customer?.name, 'John');
-    
+
     notifier.detachCustomer();
     expect(container.read(cartProvider).customer, isNull);
   });

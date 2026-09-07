@@ -17,13 +17,16 @@ void main() {
 
     test('formats to string correctly', () {
       expect(const Money(1050).format(currencyCode: 'USD'), 'USD10.50');
-      expect(const Money(123456).format(currencyCode: 'USD', symbol: false), '1,234.56');
+      expect(
+        const Money(123456).format(currencyCode: 'USD', symbol: false),
+        '1,234.56',
+      );
     });
 
     test('supports arithmetic operations', () {
-      final a = const Money(100);
-      final b = const Money(50);
-      
+      const a = Money(100);
+      const b = Money(50);
+
       expect((a + b).cents, 150);
       expect((a - b).cents, 50);
       expect((a * 3).cents, 300);

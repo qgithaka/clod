@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../core/money.dart';
 import '../../domain/entities/item_entity.dart';
 import '../../domain/entities/customer_entity.dart';
@@ -8,11 +9,8 @@ class CartLineItem {
   final int quantity;
   final Money overridePrice;
 
-  CartLineItem({
-    required this.item,
-    required this.quantity,
-    Money? price,
-  }) : overridePrice = price ?? item.sellingPrice;
+  CartLineItem({required this.item, required this.quantity, Money? price})
+    : overridePrice = price ?? item.sellingPrice;
 
   Money get lineTotal => Money(overridePrice.cents * quantity);
 
@@ -41,7 +39,11 @@ class CartState {
 
   Money get total => subtotal; // Can add global discounts later if needed
 
-  CartState copyWith({List<CartLineItem>? items, CustomerEntity? customer, bool clearCustomer = false}) {
+  CartState copyWith({
+    List<CartLineItem>? items,
+    CustomerEntity? customer,
+    bool clearCustomer = false,
+  }) {
     return CartState(
       items: items ?? this.items,
       customer: clearCustomer ? null : (customer ?? this.customer),
@@ -60,10 +62,17 @@ class CartNotifier extends Notifier<CartState> {
     if (existingIndex >= 0) {
       final existing = state.items[existingIndex];
       final updated = List<CartLineItem>.from(state.items);
-      updated[existingIndex] = existing.copyWith(quantity: existing.quantity + 1);
+      updated[existingIndex] = existing.copyWith(
+        quantity: existing.quantity + 1,
+      );
       state = state.copyWith(items: updated);
     } else {
-      state = state.copyWith(items: [...state.items, CartLineItem(item: item, quantity: 1)]);
+      state = state.copyWith(
+        items: [
+          ...state.items,
+          CartLineItem(item: item, quantity: 1),
+        ],
+      );
     }
   }
 
@@ -80,7 +89,7 @@ class CartNotifier extends Notifier<CartState> {
       state = state.copyWith(items: updated);
     }
   }
-  
+
   void updateOverridePrice(int itemId, Money newPrice) {
     final existingIndex = state.items.indexWhere((i) => i.item.id == itemId);
     if (existingIndex >= 0) {

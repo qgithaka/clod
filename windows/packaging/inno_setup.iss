@@ -1,7 +1,7 @@
 [Setup]
 AppId={{5D4E12C8-1B90-413A-9EBA-ABCD12345678}
 AppName=Clod
-AppVersion=1.0.0
+AppVersion={#MyAppVersion}
 AppPublisher=Clod Team
 AppPublisherURL=https://example.com/
 AppSupportURL=https://example.com/

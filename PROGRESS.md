@@ -181,10 +181,10 @@ Guarantees merchant data durability through encrypted `.clodbackup` exports (AES
 
 ---
 
-## M09 – Polish, Multi-Platform Packaging & Release 🔄 IN PROGRESS
+## M09 – Polish, Multi-Platform Packaging & Release ✅ COMPLETE
 
 **Branch:** `feat/m09-polish-release`  
-**Status:** Active – agent is working here
+**Status:** Merged into `development`
 
 ### Context
 Conducts comprehensive cross-platform responsiveness audits across Windows desktop, Android phones, and tablets. Executes performance optimizations, branding/app icon integration, and standalone packaging build pipelines.
@@ -196,3 +196,20 @@ Conducts comprehensive cross-platform responsiveness audits across Windows deskt
   - [x] App icons, branding assets, splash screen configuration
   - [x] End-to-end integration test suite covering the full merchant lifecycle
 - [x] Build scripts for Windows installer (MSIX / Inno Setup) and Android APK / AAB signing
+
+---
+
+## M10 - Automated Releases & Versioning ✅ COMPLETE
+
+**Branch:** `feat/m10-automated-releases`  
+**Status:** Ready for merge
+
+### Context
+Implements automated release generation, semantic versioning, and distribution workflows to streamline the delivery of Clod updates to end users.
+
+### Tasks
+- [ ] Set up Pull Request Gatekeeper CI (flutter analyze and flutter test) for merging into `development`, `staging`, and `production`
+- [x] Configure GitHub Actions to automatically bump version numbers and generate CHANGELOG.md when merging to `development`
+- [x] Create Staging Delivery Workflow: Automatically build Pre-release artifacts (Windows Installer, Android APK/AAB) when merging into `staging`
+- [x] Create Production Delivery Workflow: Automatically publish signed Production Releases when merging into `production`
+- [x] Add code scanning and secret leak prevention Actions on all pushes
