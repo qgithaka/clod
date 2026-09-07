@@ -10,6 +10,8 @@ import '../presentation/views/customers_view.dart';
 import '../presentation/views/customer_form_view.dart';
 import '../presentation/views/customer_detail_view.dart';
 
+import '../presentation/views/dashboard_view.dart';
+
 final _shellNavigatorDashboardKey = GlobalKey<NavigatorState>(debugLabel: 'dashboard');
 final _shellNavigatorCustomersKey = GlobalKey<NavigatorState>(debugLabel: 'customers');
 final _shellNavigatorCatalogueKey = GlobalKey<NavigatorState>(debugLabel: 'catalogue');
@@ -40,7 +42,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/dashboard',
-                builder: (context, state) => const PlaceholderView(title: 'Dashboard'),
+                builder: (context, state) => const DashboardView(),
               ),
             ],
           ),
