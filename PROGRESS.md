@@ -80,9 +80,9 @@ Builds the unified catalogue supporting both physical products (with stock track
 ### Tasks
 
 - [x] Implement Item entity supporting dual types (`product` vs `service`)
-- [ ] Build Catalogue List screen with search, type filters (All / Products / Services), and stock badges
-- [ ] Build Add/Edit Item form (Products: buying/selling price, stock, threshold; Services: selling price only)
-- [ ] Implement soft-delete (`is_active`) and low-stock alert triggers
+- [x] Build Catalogue List screen with search, type filters (All / Products / Services), and stock badges
+- [x] Build Add/Edit Item form (Products: buying/selling price, stock, threshold; Services: selling price only)
+- [x] Implement soft-delete (`is_active`) and low-stock alert triggers
 - [ ] Write unit tests for catalogue search, filtering, and stock threshold logic
 
 ---
