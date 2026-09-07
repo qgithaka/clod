@@ -19,7 +19,7 @@ Establishes the Flutter multi-platform application foundation targeting Windows 
 
 - [x] Initialize Flutter project targeting Windows desktop and Android
 - [x] Configure `pubspec.yaml` with core dependencies (Drift, Riverpod, go_router, path_provider, etc.)
-- [ ] Set up strict `analysis_options.yaml` and clean architecture folder structure (`core/`, `data/`, `domain/`, `presentation/`)
+- [x] Set up strict `analysis_options.yaml` and clean architecture folder structure (`core/`, `data/`, `domain/`, `presentation/`)
 - [ ] Configure Material 3 theme with high-contrast palette and dark/light mode foundations
 - [ ] Implement responsive shell (Sidebar / NavigationRail on Desktop & Tablet, NavigationBar on Mobile)
 - [ ] Implement go_router configuration with placeholder route shells for all primary views
