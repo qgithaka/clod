@@ -44,7 +44,7 @@ Defines the complete local SQLite schema via Drift tables and DAOs with compile-
 - [x] Implement BusinessProfile repository and Riverpod state provider
 - [x] Build Business Profile configuration screen (business name, phone, address, currency, logo picker)
 - [x] Implement persistent logo file storage service in local application documents
-- [ ] Write comprehensive unit tests for Drift migrations, DAOs, and Money utility
+- [x] Write comprehensive unit tests for Drift migrations, DAOs, and Money utility
 
 ---
 
