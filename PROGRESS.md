@@ -38,7 +38,7 @@ Defines the complete local SQLite schema via Drift tables and DAOs with compile-
 
 ### Tasks
 
-- [ ] Define complete SQLite schema via Drift tables (`business_profile`, `customers`, `items`, `sales`, `sale_items`, `credit_transactions`, `purchases`, `purchase_items`, `stock_movements`, `expenses`, `documents`, `app_settings`, `backup_logs`)
+- [x] Define complete SQLite schema via Drift tables (`business_profile`, `customers`, `items`, `sales`, `sale_items`, `credit_transactions`, `purchases`, `purchase_items`, `stock_movements`, `expenses`, `documents`, `app_settings`, `backup_logs`)
 - [ ] Implement Drift DAOs with reactive watch streams and CRUD operations
 - [ ] Create integer-cents Money utility class with formatting and parsing
 - [ ] Implement BusinessProfile repository and Riverpod state provider
