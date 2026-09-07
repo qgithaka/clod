@@ -42,7 +42,7 @@ class CreditStatementService {
                     if (businessProfile != null)
                       pw.Text(
                         businessProfile.name,
-                        style: pw.TextStyle(
+                        style: const pw.TextStyle(
                           fontSize: 24,
                           fontWeight: pw.FontWeight.bold,
                         ),
@@ -65,7 +65,10 @@ class CreditStatementService {
           pw.SizedBox(height: 20),
           pw.Text(
             'CREDIT STATEMENT',
-            style: pw.TextStyle(fontSize: 20, fontWeight: pw.FontWeight.bold),
+            style: const pw.TextStyle(
+              fontSize: 20,
+              fontWeight: pw.FontWeight.bold,
+            ),
           ),
           pw.SizedBox(height: 10),
           pw.Divider(),
@@ -77,7 +80,7 @@ class CreditStatementService {
                 children: [
                   pw.Text(
                     'Customer:',
-                    style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                    style: const pw.TextStyle(fontWeight: pw.FontWeight.bold),
                   ),
                   pw.Text(customer.name),
                   if (customer.phone != null) pw.Text(customer.phone!),
@@ -93,7 +96,7 @@ class CreditStatementService {
                   pw.SizedBox(height: 10),
                   pw.Text(
                     'Total Outstanding: ${customer.currentBalance.format()}',
-                    style: pw.TextStyle(
+                    style: const pw.TextStyle(
                       fontWeight: pw.FontWeight.bold,
                       fontSize: 16,
                     ),

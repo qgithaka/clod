@@ -95,10 +95,11 @@ class CustomerDetailView extends ConsumerWidget {
               Expanded(
                 child: txnsAsync.when(
                   data: (txns) {
-                    if (txns.isEmpty)
+                    if (txns.isEmpty) {
                       return const Center(
                         child: Text('No credit transactions yet.'),
                       );
+                    }
                     return ListView.builder(
                       itemCount: txns.length,
                       itemBuilder: (context, index) {
@@ -163,7 +164,7 @@ class CustomerDetailView extends ConsumerWidget {
     final amountController = TextEditingController();
     final noteController = TextEditingController();
 
-    await showDialog(
+    await showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Record Payment'),

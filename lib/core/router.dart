@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../presentation/shell/responsive_shell.dart';
-import '../presentation/views/placeholder_view.dart';
 import '../presentation/views/business_profile_view.dart';
 
 import '../presentation/views/customers_view.dart';

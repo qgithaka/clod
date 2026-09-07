@@ -39,7 +39,7 @@ class _ShrinkageViewState extends ConsumerState<ShrinkageView> {
                   decoration: const InputDecoration(
                     labelText: 'Select Product',
                   ),
-                  value: _selectedItemId,
+                  initialValue: _selectedItemId,
                   items: products
                       .map(
                         (p) => DropdownMenuItem(
@@ -63,7 +63,7 @@ class _ShrinkageViewState extends ConsumerState<ShrinkageView> {
                 const SizedBox(height: 16),
                 DropdownButtonFormField<String>(
                   decoration: const InputDecoration(labelText: 'Reason'),
-                  value: _reason,
+                  initialValue: _reason,
                   items: const [
                     DropdownMenuItem(value: 'damaged', child: Text('Damaged')),
                     DropdownMenuItem(value: 'expired', child: Text('Expired')),
@@ -111,9 +111,10 @@ class _ShrinkageViewState extends ConsumerState<ShrinkageView> {
         _reason = 'damaged';
       });
     } catch (e) {
-      if (mounted)
+      if (mounted) {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('Error: $e')));
+      }
     }
   }
 }

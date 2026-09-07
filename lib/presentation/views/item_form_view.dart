@@ -57,8 +57,9 @@ class _ItemFormViewState extends ConsumerState<ItemFormView> {
   Widget build(BuildContext context) {
     if (widget.itemId != 'new') {
       final itemAsync = ref.watch(itemProvider(int.parse(widget.itemId)));
-      if (itemAsync.isLoading)
+      if (itemAsync.isLoading) {
         return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      }
       if (itemAsync.hasValue && itemAsync.value != null) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (mounted) setState(() => _populate(itemAsync.value!));

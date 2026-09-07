@@ -67,10 +67,11 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
     try {
       final files = await driveSvc.listBackups();
       if (files.isEmpty) {
-        if (mounted)
+        if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('No backups found in Drive.')),
           );
+        }
         return;
       }
 
@@ -94,9 +95,10 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
         }
       }
     } catch (e) {
-      if (mounted)
+      if (mounted) {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('Restore failed: $e')));
+      }
     } finally {
       if (mounted) setState(() => _isSyncing = false);
     }

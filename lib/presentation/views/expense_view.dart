@@ -118,8 +118,9 @@ class _ExpenseViewState extends ConsumerState<ExpenseView> {
               Expanded(
                 child: expensesAsync.when(
                   data: (expenses) {
-                    if (expenses.isEmpty)
+                    if (expenses.isEmpty) {
                       return const Center(child: Text('No expenses found.'));
+                    }
                     return ListView.builder(
                       itemCount: expenses.length,
                       itemBuilder: (context, index) {
@@ -176,7 +177,7 @@ class _ExpenseViewState extends ConsumerState<ExpenseView> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   DropdownButtonFormField<String>(
-                    value: category,
+                    initialValue: category,
                     decoration: const InputDecoration(labelText: 'Category'),
                     items:
                         [

@@ -54,8 +54,9 @@ class _DocumentListViewState extends ConsumerState<DocumentListView> {
       ),
       body: docsAsync.when(
         data: (docs) {
-          if (docs.isEmpty)
+          if (docs.isEmpty) {
             return Center(child: Text('No ${_selectedType}s found.'));
+          }
           return ListView.builder(
             itemCount: docs.length,
             itemBuilder: (context, index) {
@@ -132,16 +133,15 @@ class _DocumentListViewState extends ConsumerState<DocumentListView> {
                                   }
 
                                   // Simplified logic, assume all items are found in POS
-                                  if (mounted) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          'Added to Cart! (Partial logic for now)',
-                                        ),
+                                  if (!context.mounted) return;
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        'Added to Cart! (Partial logic for now)',
                                       ),
-                                    );
-                                    context.go('/pos');
-                                  }
+                                    ),
+                                  );
+                                  context.go('/pos');
                                 },
                               ),
                           ],

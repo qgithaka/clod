@@ -10,7 +10,6 @@ import 'package:clod/data/repositories/expense_repository.dart';
 import 'package:clod/core/money.dart';
 import 'package:clod/core/providers/cart_provider.dart';
 import 'package:clod/domain/entities/item_entity.dart';
-import 'package:clod/domain/entities/customer_entity.dart';
 
 void main() {
   late AppDatabase db;
@@ -59,7 +58,7 @@ void main() {
       items: [CartLineItem(item: item, quantity: 2, price: const Money(500))],
       customer: customer,
     );
-    final saleId = await saleRepo.processCheckout(cart, true);
+    await saleRepo.processCheckout(cart, true);
 
     // Repayment
     await db

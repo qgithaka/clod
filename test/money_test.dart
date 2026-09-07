@@ -24,8 +24,8 @@ void main() {
     });
 
     test('supports arithmetic operations', () {
-      final a = const Money(100);
-      final b = const Money(50);
+      const a = Money(100);
+      const b = Money(50);
 
       expect((a + b).cents, 150);
       expect((a - b).cents, 50);

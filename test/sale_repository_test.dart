@@ -7,7 +7,6 @@ import 'package:clod/data/repositories/customer_repository.dart';
 import 'package:clod/core/providers/cart_provider.dart';
 import 'package:clod/core/money.dart';
 import 'package:clod/domain/entities/item_entity.dart';
-import 'package:clod/domain/entities/customer_entity.dart';
 
 void main() {
   late AppDatabase db;

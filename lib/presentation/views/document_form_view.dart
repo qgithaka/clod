@@ -37,8 +37,9 @@ class _DocumentFormViewState extends ConsumerState<DocumentFormView> {
       ),
       body: customersAsync.when(
         data: (customers) {
-          if (customers.isEmpty)
+          if (customers.isEmpty) {
             return const Center(child: Text('Please create a customer first.'));
+          }
           return Align(
             alignment: Alignment.topCenter,
             child: ConstrainedBox(
@@ -50,7 +51,7 @@ class _DocumentFormViewState extends ConsumerState<DocumentFormView> {
                   children: [
                     DropdownButtonFormField<int>(
                       decoration: const InputDecoration(labelText: 'Customer'),
-                      value: _selectedCustomerId,
+                      initialValue: _selectedCustomerId,
                       items: customers
                           .map(
                             (c) => DropdownMenuItem(
@@ -146,7 +147,7 @@ class _DocumentFormViewState extends ConsumerState<DocumentFormView> {
                 children: [
                   DropdownButtonFormField<int>(
                     decoration: const InputDecoration(labelText: 'Item'),
-                    value: selectedItemId,
+                    initialValue: selectedItemId,
                     items: activeItems
                         .map(
                           (i) => DropdownMenuItem(
@@ -211,9 +212,10 @@ class _DocumentFormViewState extends ConsumerState<DocumentFormView> {
       if (!mounted) return;
       context.pop();
     } catch (e) {
-      if (mounted)
+      if (mounted) {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('Error: $e')));
+      }
     }
   }
 }

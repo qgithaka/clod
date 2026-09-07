@@ -6,7 +6,6 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:share_plus/share_plus.dart';
 
-import '../../core/money.dart';
 import '../../core/providers/cart_provider.dart';
 import '../../data/database/app_database.dart';
 import '../../data/repositories/business_profile_repository.dart';
@@ -46,7 +45,7 @@ class ReceiptService {
               if (profile?.name != null)
                 pw.Text(
                   profile!.name,
-                  style: pw.TextStyle(
+                  style: const pw.TextStyle(
                     fontSize: 20,
                     fontWeight: pw.FontWeight.bold,
                   ),
@@ -56,7 +55,7 @@ class ReceiptService {
               pw.Divider(),
               pw.Text(
                 'RECEIPT #$saleId',
-                style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                style: const pw.TextStyle(fontWeight: pw.FontWeight.bold),
               ),
               pw.Text(DateTime.now().toString().split('.')[0]),
               if (cart.customer != null)
@@ -79,14 +78,14 @@ class ReceiptService {
                 children: [
                   pw.Text(
                     'TOTAL',
-                    style: pw.TextStyle(
+                    style: const pw.TextStyle(
                       fontWeight: pw.FontWeight.bold,
                       fontSize: 16,
                     ),
                   ),
                   pw.Text(
                     cart.total.format(),
-                    style: pw.TextStyle(
+                    style: const pw.TextStyle(
                       fontWeight: pw.FontWeight.bold,
                       fontSize: 16,
                     ),

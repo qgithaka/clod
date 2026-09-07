@@ -65,12 +65,15 @@ class _CatalogueViewState extends ConsumerState<CatalogueView> {
               data: (items) {
                 var filtered = items.where((i) {
                   if (_searchQuery.isNotEmpty &&
-                      !i.name.toLowerCase().contains(_searchQuery))
+                      !i.name.toLowerCase().contains(_searchQuery)) {
                     return false;
-                  if (_filter == 'Products' && i.type != ItemType.product)
+                  }
+                  if (_filter == 'Products' && i.type != ItemType.product) {
                     return false;
-                  if (_filter == 'Services' && i.type != ItemType.service)
+                  }
+                  if (_filter == 'Services' && i.type != ItemType.service) {
                     return false;
+                  }
                   return true;
                 }).toList();
 

@@ -192,13 +192,15 @@ class AnalyticsRepository {
     final items = await _db.select(_db.items).get();
     if (retail) {
       int val = 0;
-      for (var i in items)
+      for (var i in items) {
         val += ((i.stockQuantity ?? 0) * i.sellingPriceCents);
+      }
       return val;
     } else {
       int val = 0;
-      for (var i in items)
+      for (var i in items) {
         val += ((i.stockQuantity ?? 0) * (i.buyingPriceCents ?? 0));
+      }
       return val;
     }
   }
