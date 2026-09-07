@@ -199,10 +199,10 @@ Conducts comprehensive cross-platform responsiveness audits across Windows deskt
 
 ---
 
-## M10 - Automated Releases & Versioning 📝 PLANNED
+## M10 - Automated Releases & Versioning ✅ COMPLETE
 
 **Branch:** `feat/m10-automated-releases`  
-**Status:** Pending human approval
+**Status:** Ready for merge
 
 ### Context
 Implements automated release generation, semantic versioning, and distribution workflows to streamline the delivery of Clod updates to end users.
@@ -210,6 +210,6 @@ Implements automated release generation, semantic versioning, and distribution w
 ### Tasks
 - [ ] Set up Pull Request Gatekeeper CI (flutter analyze and flutter test) for merging into `development`, `staging`, and `production`
 - [x] Configure GitHub Actions to automatically bump version numbers and generate CHANGELOG.md when merging to `development`
-- [ ] Create Staging Delivery Workflow: Automatically build Pre-release artifacts (Windows Installer, Android APK/AAB) when merging into `staging`
-- [ ] Create Production Delivery Workflow: Automatically publish signed Production Releases when merging into `production`
-- [ ] Add code scanning and secret leak prevention Actions on all pushes
+- [x] Create Staging Delivery Workflow: Automatically build Pre-release artifacts (Windows Installer, Android APK/AAB) when merging into `staging`
+- [x] Create Production Delivery Workflow: Automatically publish signed Production Releases when merging into `production`
+- [x] Add code scanning and secret leak prevention Actions on all pushes
