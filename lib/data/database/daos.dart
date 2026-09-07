@@ -77,7 +77,7 @@ class StockMovementDao extends DatabaseAccessor<AppDatabase> with _$StockMovemen
 class ExpenseDao extends DatabaseAccessor<AppDatabase> with _$ExpenseDaoMixin {
   ExpenseDao(super.db);
 
-  Stream<List<Expens>> watchAllExpenses() => select(expenses).watch();
+  Stream<List<Expense>> watchAllExpenses() => select(expenses).watch();
   Future<int> insertExpense(ExpensesCompanion expense) => into(expenses).insert(expense);
 }
 
