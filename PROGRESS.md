@@ -87,23 +87,23 @@ Builds the unified catalogue supporting both physical products (with stock track
 
 ---
 
-## M04 – Point of Sale & Checkout Engine ⏳ PENDING
+## M04 – Point of Sale & Checkout Engine ✅ COMPLETE
 
 **Branch:** `feat/m04-pos-checkout`  
-**Status:** Pending M03
+**Status:** Active – agent is working here
 
 ### Context
 Constructs the high-speed, touch-optimized checkout experience. Manages an in-memory cart with line adjustments, customer attachment, and atomic multi-table checkout transactions (Cash vs Credit) with immediate offline PDF receipt generation.
 
 ### Tasks
 
-- [ ] Implement in-memory POS Cart state management via Riverpod (add/remove items, quantity steppers, discounts)
-- [ ] Build fast, touch-friendly POS Screen layout (Item grid/search on left, live Cart on right)
-- [ ] Implement Customer attachment flow to cart
-- [ ] Build atomic Checkout transaction (Cash: records sale + stock deduction; Credit: updates customer balance + records credit transaction + stock deduction)
-- [ ] Build Sale Success screen with instant PDF receipt preview and sharing
-- [ ] Implement dynamic PDF receipt generator with logo, items, totals, and payment method
-- [ ] Write rigorous integration tests for concurrent cart operations, stock deductions, and credit checkout
+- [x] Implement in-memory POS Cart state management via Riverpod (add/remove items, quantity steppers, discounts)
+- [x] Build fast, touch-friendly POS Screen layout (Item grid/search on left, live Cart on right)
+- [x] Implement Customer attachment flow to cart
+- [x] Build atomic Checkout transaction (Cash: records sale + stock deduction; Credit: updates customer balance + records credit transaction + stock deduction)
+- [x] Build Sale Success screen with instant PDF receipt preview and sharing
+- [x] Implement dynamic PDF receipt generator with logo, items, totals, and payment method
+- [x] Write rigorous integration tests for concurrent cart operations, stock deductions, and credit checkout
 
 ---
 
