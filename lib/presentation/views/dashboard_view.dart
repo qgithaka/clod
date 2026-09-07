@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../core/money.dart';
 import '../../data/repositories/analytics_repository.dart';
 
@@ -59,7 +60,13 @@ class DashboardView extends ConsumerWidget {
     );
   }
 
-  Widget _buildMetricCard(BuildContext context, {required String title, required String value, required IconData icon, required Color color}) {
+  Widget _buildMetricCard(
+    BuildContext context, {
+    required String title,
+    required String value,
+    required IconData icon,
+    required Color color,
+  }) {
     return Card(
       elevation: 2,
       child: Padding(
@@ -80,9 +87,8 @@ class DashboardView extends ConsumerWidget {
                   const SizedBox(height: 8),
                   Text(
                     value,
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                    style: Theme.of(context).textTheme.headlineMedium
+                        ?.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ],
               ),

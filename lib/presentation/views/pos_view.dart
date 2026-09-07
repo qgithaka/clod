@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../core/providers/cart_provider.dart';
 import '../../data/repositories/item_repository.dart';
 import '../../data/repositories/customer_repository.dart';
@@ -53,39 +54,53 @@ class _PosViewState extends ConsumerState<PosView> {
                       prefixIcon: Icon(Icons.search),
                       border: OutlineInputBorder(),
                     ),
-                    onChanged: (val) => setState(() => _searchQuery = val.toLowerCase()),
+                    onChanged: (val) =>
+                        setState(() => _searchQuery = val.toLowerCase()),
                   ),
                 ),
                 Expanded(
                   child: itemsAsync.when(
                     data: (items) {
                       final filtered = items.where((i) {
-                        return _searchQuery.isEmpty || i.name.toLowerCase().contains(_searchQuery);
+                        return _searchQuery.isEmpty ||
+                            i.name.toLowerCase().contains(_searchQuery);
                       }).toList();
                       return GridView.builder(
                         padding: const EdgeInsets.all(8),
-                        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 200,
-                          childAspectRatio: 1,
-                          crossAxisSpacing: 8,
-                          mainAxisSpacing: 8,
-                        ),
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: 200,
+                              childAspectRatio: 1,
+                              crossAxisSpacing: 8,
+                              mainAxisSpacing: 8,
+                            ),
                         itemCount: filtered.length,
                         itemBuilder: (context, index) {
                           final item = filtered[index];
                           return InkWell(
-                            onTap: () => ref.read(cartProvider.notifier).addItem(item),
+                            onTap: () =>
+                                ref.read(cartProvider.notifier).addItem(item),
                             child: Card(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(
-                                    item.type == ItemType.product ? Icons.inventory : Icons.build,
+                                    item.type == ItemType.product
+                                        ? Icons.inventory
+                                        : Icons.build,
                                     size: 40,
-                                    color: item.type == ItemType.product ? Colors.blue : Colors.purple,
+                                    color: item.type == ItemType.product
+                                        ? Colors.blue
+                                        : Colors.purple,
                                   ),
                                   const SizedBox(height: 8),
-                                  Text(item.name, textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.bold)),
+                                  Text(
+                                    item.name,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                   const SizedBox(height: 4),
                                   Text(item.sellingPrice.format()),
                                 ],
@@ -95,7 +110,8 @@ class _PosViewState extends ConsumerState<PosView> {
                         },
                       );
                     },
-                    loading: () => const Center(child: CircularProgressIndicator()),
+                    loading: () =>
+                        const Center(child: CircularProgressIndicator()),
                     error: (e, s) => Center(child: Text('Error: $e')),
                   ),
                 ),
@@ -126,18 +142,33 @@ class _PosViewState extends ConsumerState<PosView> {
                         final line = cartState.items[index];
                         return ListTile(
                           title: Text(line.item.name),
-                          subtitle: Text('${line.overridePrice.format()} x ${line.quantity}'),
+                          subtitle: Text(
+                            '${line.overridePrice.format()} x ${line.quantity}',
+                          ),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               IconButton(
                                 icon: const Icon(Icons.remove_circle_outline),
-                                onPressed: () => ref.read(cartProvider.notifier).updateQuantity(line.item.id, line.quantity - 1),
+                                onPressed: () => ref
+                                    .read(cartProvider.notifier)
+                                    .updateQuantity(
+                                      line.item.id,
+                                      line.quantity - 1,
+                                    ),
                               ),
-                              Text('${line.quantity}', style: const TextStyle(fontSize: 16)),
+                              Text(
+                                '${line.quantity}',
+                                style: const TextStyle(fontSize: 16),
+                              ),
                               IconButton(
                                 icon: const Icon(Icons.add_circle_outline),
-                                onPressed: () => ref.read(cartProvider.notifier).updateQuantity(line.item.id, line.quantity + 1),
+                                onPressed: () => ref
+                                    .read(cartProvider.notifier)
+                                    .updateQuantity(
+                                      line.item.id,
+                                      line.quantity + 1,
+                                    ),
                               ),
                             ],
                           ),
@@ -154,15 +185,32 @@ class _PosViewState extends ConsumerState<PosView> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text('Total', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                            Text(cartState.total.format(), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                            const Text(
+                              'Total',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              cartState.total.format(),
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ],
                         ),
                         const SizedBox(height: 16),
                         FilledButton.icon(
                           icon: const Icon(Icons.payment),
-                          label: const Text('Checkout', style: TextStyle(fontSize: 18)),
-                          style: FilledButton.styleFrom(padding: const EdgeInsets.all(16)),
+                          label: const Text(
+                            'Checkout',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          style: FilledButton.styleFrom(
+                            padding: const EdgeInsets.all(16),
+                          ),
                           onPressed: cartState.items.isEmpty ? null : _checkout,
                         ),
                       ],
@@ -178,9 +226,12 @@ class _PosViewState extends ConsumerState<PosView> {
   }
 
   Future<void> _showCustomerSelection() async {
-    final customers = await ref.read(customerRepositoryProvider).watchAllCustomers().first;
+    final customers = await ref
+        .read(customerRepositoryProvider)
+        .watchAllCustomers()
+        .first;
     if (!mounted) return;
-    
+
     showModalBottomSheet<void>(
       context: context,
       builder: (context) {
@@ -215,13 +266,15 @@ class _PosViewState extends ConsumerState<PosView> {
 
   void _checkout() {
     final cartState = ref.read(cartProvider);
-    
-      showDialog<void>(
+
+    showDialog<void>(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: const Text('Complete Sale'),
-          content: Text('Total amount: ${cartState.total.format()}\nSelect payment method:'),
+          content: Text(
+            'Total amount: ${cartState.total.format()}\nSelect payment method:',
+          ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
@@ -253,12 +306,14 @@ class _PosViewState extends ConsumerState<PosView> {
   Future<void> _processCheckout(bool isCredit) async {
     final cartState = ref.read(cartProvider);
     try {
-      final saleId = await ref.read(saleRepositoryProvider).processCheckout(cartState, isCredit);
-      
+      final saleId = await ref
+          .read(saleRepositoryProvider)
+          .processCheckout(cartState, isCredit);
+
       if (!mounted) return;
       ref.read(cartProvider.notifier).clearCart();
-      
-        showDialog<void>(
+
+      showDialog<void>(
         context: context,
         barrierDismissible: false,
         builder: (context) {
@@ -274,11 +329,13 @@ class _PosViewState extends ConsumerState<PosView> {
                 icon: const Icon(Icons.receipt),
                 label: const Text('Share Receipt'),
                 onPressed: () {
-                  ref.read(receiptServiceProvider).generateAndShareReceipt(
-                    cart: cartState,
-                    isCredit: isCredit,
-                    saleId: saleId,
-                  );
+                  ref
+                      .read(receiptServiceProvider)
+                      .generateAndShareReceipt(
+                        cart: cartState,
+                        isCredit: isCredit,
+                        saleId: saleId,
+                      );
                 },
               ),
             ],
@@ -287,7 +344,8 @@ class _PosViewState extends ConsumerState<PosView> {
       );
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Error: $e')));
       }
     }
   }

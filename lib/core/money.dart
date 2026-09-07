@@ -33,11 +33,13 @@ class Money {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Money && runtimeType == other.runtimeType && cents == other.cents;
+      other is Money &&
+          runtimeType == other.runtimeType &&
+          cents == other.cents;
 
   @override
   int get hashCode => cents.hashCode;
-  
+
   @override
   String toString() => format();
 }

@@ -8,12 +8,12 @@ class ItemEntity {
   final String name;
   final ItemType type;
   final Money sellingPrice;
-  
+
   // Product specific
   final Money? buyingPrice;
   final int? stockQuantity;
   final int? lowStockThreshold;
-  
+
   final bool isActive;
   final DateTime createdAt;
 
@@ -35,11 +35,16 @@ class ItemEntity {
       name: data.name,
       type: data.type == 'product' ? ItemType.product : ItemType.service,
       sellingPrice: Money(data.sellingPriceCents),
-      buyingPrice: data.buyingPriceCents != null ? Money(data.buyingPriceCents!) : null,
+      buyingPrice: data.buyingPriceCents != null
+          ? Money(data.buyingPriceCents!)
+          : null,
       stockQuantity: data.stockQuantity,
       lowStockThreshold: data.lowStockThreshold,
       isActive: data.isActive,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(data.createdAt, isUtc: true),
+      createdAt: DateTime.fromMillisecondsSinceEpoch(
+        data.createdAt,
+        isUtc: true,
+      ),
     );
   }
 

@@ -28,7 +28,10 @@ class CreditTransactionEntity {
       type: data.amountCents > 0 ? 'CHARGE' : 'PAYMENT',
       amount: Money(data.amountCents.abs()),
       referenceNote: data.note,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(data.createdAt, isUtc: true),
+      createdAt: DateTime.fromMillisecondsSinceEpoch(
+        data.createdAt,
+        isUtc: true,
+      ),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../core/money.dart';
 import '../../data/repositories/customer_repository.dart';
 import '../../domain/entities/customer_entity.dart';
@@ -42,7 +43,8 @@ class _CustomerFormViewState extends ConsumerState<CustomerFormView> {
           _nameController.text = _existingCustomer!.name;
           _phoneController.text = _existingCustomer!.phone ?? '';
           _addressController.text = _existingCustomer!.address ?? '';
-          _creditLimitController.text = _existingCustomer!.creditLimit.asDouble.toString();
+          _creditLimitController.text = _existingCustomer!.creditLimit.asDouble
+              .toString();
         }
       }
     }
@@ -52,8 +54,10 @@ class _CustomerFormViewState extends ConsumerState<CustomerFormView> {
   Future<void> _save() async {
     if (_formKey.currentState!.validate()) {
       final repo = ref.read(customerRepositoryProvider);
-      final limit = Money.fromDouble(double.tryParse(_creditLimitController.text) ?? 0);
-      
+      final limit = Money.fromDouble(
+        double.tryParse(_creditLimitController.text) ?? 0,
+      );
+
       if (_existingCustomer == null) {
         await repo.addCustomer(
           name: _nameController.text,
@@ -84,7 +88,11 @@ class _CustomerFormViewState extends ConsumerState<CustomerFormView> {
     final customersAsync = ref.watch(customersProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(widget.customerId == 'new' ? 'New Customer' : 'Edit Customer')),
+      appBar: AppBar(
+        title: Text(
+          widget.customerId == 'new' ? 'New Customer' : 'Edit Customer',
+        ),
+      ),
       body: customersAsync.when(
         data: (customers) {
           _init(customers);
@@ -96,25 +104,40 @@ class _CustomerFormViewState extends ConsumerState<CustomerFormView> {
                 children: [
                   TextFormField(
                     controller: _nameController,
-                    decoration: const InputDecoration(labelText: 'Name', border: OutlineInputBorder()),
-                    validator: (v) => v == null || v.isEmpty ? 'Required' : null,
+                    decoration: const InputDecoration(
+                      labelText: 'Name',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (v) =>
+                        v == null || v.isEmpty ? 'Required' : null,
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
                     controller: _phoneController,
-                    decoration: const InputDecoration(labelText: 'Phone', border: OutlineInputBorder()),
+                    decoration: const InputDecoration(
+                      labelText: 'Phone',
+                      border: OutlineInputBorder(),
+                    ),
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
                     controller: _addressController,
-                    decoration: const InputDecoration(labelText: 'Address', border: OutlineInputBorder()),
+                    decoration: const InputDecoration(
+                      labelText: 'Address',
+                      border: OutlineInputBorder(),
+                    ),
                     maxLines: 3,
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
                     controller: _creditLimitController,
-                    decoration: const InputDecoration(labelText: 'Credit Limit', border: OutlineInputBorder()),
-                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    decoration: const InputDecoration(
+                      labelText: 'Credit Limit',
+                      border: OutlineInputBorder(),
+                    ),
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
                   ),
                   const SizedBox(height: 32),
                   SizedBox(
@@ -124,7 +147,7 @@ class _CustomerFormViewState extends ConsumerState<CustomerFormView> {
                       onPressed: _save,
                       child: const Text('Save Customer'),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

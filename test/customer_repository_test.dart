@@ -18,10 +18,7 @@ void main() {
   });
 
   test('addCustomer inserts a customer with correct credit limit', () async {
-    await repo.addCustomer(
-      name: 'John Doe',
-      creditLimit: const Money(50000),
-    );
+    await repo.addCustomer(name: 'John Doe', creditLimit: const Money(50000));
 
     final customers = await db.customerDao.getAllCustomers();
     expect(customers.length, 1);
@@ -30,25 +27,36 @@ void main() {
     expect(customers.first.currentBalanceCents, 0);
   });
 
-  test('recordRepayment atomically updates balance and inserts transaction', () async {
-    await repo.addCustomer(
-      name: 'Jane Doe',
-      creditLimit: const Money(100000),
-    );
-    
-    var customers = await db.customerDao.getAllCustomers();
-    final customerId = customers.first.id;
+  test(
+    'recordRepayment atomically updates balance and inserts transaction',
+    () async {
+      await repo.addCustomer(
+        name: 'Jane Doe',
+        creditLimit: const Money(100000),
+      );
 
-    await db.customerDao.updateCustomer(customers.first.copyWith(currentBalanceCents: 15000).toCompanion(true));
+      var customers = await db.customerDao.getAllCustomers();
+      final customerId = customers.first.id;
 
-    await repo.recordRepayment(customerId, const Money(5000), note: 'Cash payment');
+      await db.customerDao.updateCustomer(
+        customers.first.copyWith(currentBalanceCents: 15000).toCompanion(true),
+      );
 
-    customers = await db.customerDao.getAllCustomers();
-    expect(customers.first.currentBalanceCents, 10000);
+      await repo.recordRepayment(
+        customerId,
+        const Money(5000),
+        note: 'Cash payment',
+      );
 
-    final txns = await db.creditTransactionDao.watchTransactionsForCustomer(customerId).first;
-    expect(txns.length, 1);
-    expect(txns.first.amountCents, -5000);
-    expect(txns.first.note, 'Cash payment');
-  });
+      customers = await db.customerDao.getAllCustomers();
+      expect(customers.first.currentBalanceCents, 10000);
+
+      final txns = await db.creditTransactionDao
+          .watchTransactionsForCustomer(customerId)
+          .first;
+      expect(txns.length, 1);
+      expect(txns.first.amountCents, -5000);
+      expect(txns.first.note, 'Cash payment');
+    },
+  );
 }

@@ -18,7 +18,11 @@ void main() {
 
   test('Add and fetch expenses', () async {
     await expenseRepo.addExpense(category: 'Rent', amountCents: 50000);
-    await expenseRepo.addExpense(category: 'Supplies', amountCents: 1500, note: 'Pens and paper');
+    await expenseRepo.addExpense(
+      category: 'Supplies',
+      amountCents: 1500,
+      note: 'Pens and paper',
+    );
 
     final expenses = await expenseRepo.watchExpenses().first;
     expect(expenses.length, 2);

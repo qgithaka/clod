@@ -22,16 +22,27 @@ void main() {
   });
 
   test('Log shrinkage deducts stock and records movement', () async {
-    await itemRepo.addItem(name: 'Widget', type: ItemType.product, sellingPrice: const Money(500), stockQuantity: 10);
+    await itemRepo.addItem(
+      name: 'Widget',
+      type: ItemType.product,
+      sellingPrice: const Money(500),
+      stockQuantity: 10,
+    );
     final items = await itemRepo.watchAllActiveItems().first;
     final item = items.first;
 
-    await smRepo.logShrinkage(itemId: item.id, quantityReduced: 3, reason: 'damaged');
+    await smRepo.logShrinkage(
+      itemId: item.id,
+      quantityReduced: 3,
+      reason: 'damaged',
+    );
 
     final updatedItem = await db.itemDao.getItem(item.id);
     expect(updatedItem.stockQuantity, 7);
 
-    final movements = await db.stockMovementDao.watchMovementsForItem(item.id).first;
+    final movements = await db.stockMovementDao
+        .watchMovementsForItem(item.id)
+        .first;
     expect(movements.length, 1);
     expect(movements.first.quantityChange, -3);
     expect(movements.first.reason, 'damaged');

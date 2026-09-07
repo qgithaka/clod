@@ -33,8 +33,14 @@ class CustomerEntity {
       creditLimit: Money(data.creditLimitCents),
       currentBalance: Money(data.currentBalanceCents),
       isActive: data.isActive,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(data.createdAt, isUtc: true),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(data.updatedAt, isUtc: true),
+      createdAt: DateTime.fromMillisecondsSinceEpoch(
+        data.createdAt,
+        isUtc: true,
+      ),
+      updatedAt: DateTime.fromMillisecondsSinceEpoch(
+        data.updatedAt,
+        isUtc: true,
+      ),
     );
   }
 }

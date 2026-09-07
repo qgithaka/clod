@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final driveSyncServiceProvider = Provider<DriveSyncService>((ref) {
@@ -40,9 +41,7 @@ class DriveSyncService {
   Future<List<MockDriveFile>> listBackups() async {
     if (_currentUser == null) throw Exception('User not signed in');
     await Future.delayed(const Duration(seconds: 1));
-    return [
-      MockDriveFile(id: 'mock-1', name: 'ClodBackup_mock.clodbackup'),
-    ];
+    return [MockDriveFile(id: 'mock-1', name: 'ClodBackup_mock.clodbackup')];
   }
 
   Future<File> downloadBackup(MockDriveFile file) async {

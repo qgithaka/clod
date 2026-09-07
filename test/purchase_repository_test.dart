@@ -22,13 +22,23 @@ void main() {
   });
 
   test('Purchase Order Workflow', () async {
-    await itemRepo.addItem(name: 'Widget', type: ItemType.product, sellingPrice: const Money(500), stockQuantity: 10, buyingPrice: const Money(200));
+    await itemRepo.addItem(
+      name: 'Widget',
+      type: ItemType.product,
+      sellingPrice: const Money(500),
+      stockQuantity: 10,
+      buyingPrice: const Money(200),
+    );
     final items = await itemRepo.watchAllActiveItems().first;
     final item = items.first;
 
     // 1. Create Draft PO
     final lines = [
-      PurchaseOrderLine(itemId: item.id, quantity: 20, unitCost: const Money(250)),
+      PurchaseOrderLine(
+        itemId: item.id,
+        quantity: 20,
+        unitCost: const Money(250),
+      ),
     ];
     final poId = await purchaseRepo.createDraftPO(lines);
 
@@ -56,7 +66,9 @@ void main() {
     expect(updatedItem.buyingPriceCents, 233);
 
     // 5. Verify Stock Movement
-    final movements = await db.stockMovementDao.watchMovementsForItem(item.id).first;
+    final movements = await db.stockMovementDao
+        .watchMovementsForItem(item.id)
+        .first;
     expect(movements.length, 1);
     expect(movements.first.quantityChange, 20);
     expect(movements.first.reason, 'purchase');

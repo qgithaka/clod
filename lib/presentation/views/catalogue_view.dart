@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../data/repositories/item_repository.dart';
 import '../../domain/entities/item_entity.dart';
 
@@ -20,9 +21,7 @@ class _CatalogueViewState extends ConsumerState<CatalogueView> {
     final itemsAsync = ref.watch(activeItemsProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Catalogue'),
-      ),
+      appBar: AppBar(title: const Text('Catalogue')),
       body: Column(
         children: [
           Padding(
@@ -36,7 +35,8 @@ class _CatalogueViewState extends ConsumerState<CatalogueView> {
                       prefixIcon: Icon(Icons.search),
                       border: OutlineInputBorder(),
                     ),
-                    onChanged: (value) => setState(() => _searchQuery = value.toLowerCase()),
+                    onChanged: (value) =>
+                        setState(() => _searchQuery = value.toLowerCase()),
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -44,8 +44,14 @@ class _CatalogueViewState extends ConsumerState<CatalogueView> {
                   value: _filter,
                   items: const [
                     DropdownMenuItem(value: 'All', child: Text('All Types')),
-                    DropdownMenuItem(value: 'Products', child: Text('Products')),
-                    DropdownMenuItem(value: 'Services', child: Text('Services')),
+                    DropdownMenuItem(
+                      value: 'Products',
+                      child: Text('Products'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'Services',
+                      child: Text('Services'),
+                    ),
                   ],
                   onChanged: (val) {
                     if (val != null) setState(() => _filter = val);
@@ -58,9 +64,13 @@ class _CatalogueViewState extends ConsumerState<CatalogueView> {
             child: itemsAsync.when(
               data: (items) {
                 var filtered = items.where((i) {
-                  if (_searchQuery.isNotEmpty && !i.name.toLowerCase().contains(_searchQuery)) return false;
-                  if (_filter == 'Products' && i.type != ItemType.product) return false;
-                  if (_filter == 'Services' && i.type != ItemType.service) return false;
+                  if (_searchQuery.isNotEmpty &&
+                      !i.name.toLowerCase().contains(_searchQuery))
+                    return false;
+                  if (_filter == 'Products' && i.type != ItemType.product)
+                    return false;
+                  if (_filter == 'Services' && i.type != ItemType.service)
+                    return false;
                   return true;
                 }).toList();
 
@@ -74,26 +84,38 @@ class _CatalogueViewState extends ConsumerState<CatalogueView> {
                     final item = filtered[index];
                     return ListTile(
                       leading: CircleAvatar(
-                        backgroundColor: item.type == ItemType.product ? Colors.blue.shade100 : Colors.purple.shade100,
+                        backgroundColor: item.type == ItemType.product
+                            ? Colors.blue.shade100
+                            : Colors.purple.shade100,
                         child: Icon(
-                          item.type == ItemType.product ? Icons.inventory : Icons.build,
-                          color: item.type == ItemType.product ? Colors.blue : Colors.purple,
+                          item.type == ItemType.product
+                              ? Icons.inventory
+                              : Icons.build,
+                          color: item.type == ItemType.product
+                              ? Colors.blue
+                              : Colors.purple,
                         ),
                       ),
                       title: Text(item.name),
-                      subtitle: item.type == ItemType.product 
+                      subtitle: item.type == ItemType.product
                           ? Text('Stock: ${item.stockQuantity ?? 0}')
                           : const Text('Service'),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          if (item.isLowStock) 
+                          if (item.isLowStock)
                             const Tooltip(
                               message: 'Low Stock',
                               child: Icon(Icons.warning, color: Colors.orange),
                             ),
                           const SizedBox(width: 8),
-                          Text(item.sellingPrice.format(), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                          Text(
+                            item.sellingPrice.format(),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
                         ],
                       ),
                       onTap: () => context.go('/catalogue/${item.id}'),

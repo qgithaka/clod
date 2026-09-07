@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../data/repositories/item_repository.dart';
 import '../../data/repositories/stock_movement_repository.dart';
 
@@ -22,7 +23,9 @@ class _ShrinkageViewState extends ConsumerState<ShrinkageView> {
     return Scaffold(
       body: itemsAsync.when(
         data: (items) {
-          final products = items.where((i) => i.type.name == 'product').toList();
+          final products = items
+              .where((i) => i.type.name == 'product')
+              .toList();
           if (products.isEmpty) {
             return const Center(child: Text('No products available.'));
           }
@@ -33,20 +36,29 @@ class _ShrinkageViewState extends ConsumerState<ShrinkageView> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 DropdownButtonFormField<int>(
-                  decoration: const InputDecoration(labelText: 'Select Product'),
+                  decoration: const InputDecoration(
+                    labelText: 'Select Product',
+                  ),
                   value: _selectedItemId,
-                  items: products.map((p) => DropdownMenuItem(
-                    value: p.id,
-                    child: Text('${p.name} (Stock: ${p.stockQuantity})'),
-                  )).toList(),
+                  items: products
+                      .map(
+                        (p) => DropdownMenuItem(
+                          value: p.id,
+                          child: Text('${p.name} (Stock: ${p.stockQuantity})'),
+                        ),
+                      )
+                      .toList(),
                   onChanged: (v) => setState(() => _selectedItemId = v),
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
-                  decoration: const InputDecoration(labelText: 'Quantity Reduced'),
+                  decoration: const InputDecoration(
+                    labelText: 'Quantity Reduced',
+                  ),
                   keyboardType: TextInputType.number,
                   initialValue: '1',
-                  onChanged: (v) => setState(() => _quantity = int.tryParse(v) ?? 1),
+                  onChanged: (v) =>
+                      setState(() => _quantity = int.tryParse(v) ?? 1),
                 ),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<String>(
@@ -56,13 +68,18 @@ class _ShrinkageViewState extends ConsumerState<ShrinkageView> {
                     DropdownMenuItem(value: 'damaged', child: Text('Damaged')),
                     DropdownMenuItem(value: 'expired', child: Text('Expired')),
                     DropdownMenuItem(value: 'lost', child: Text('Lost')),
-                    DropdownMenuItem(value: 'adjustment', child: Text('Manual Adjustment')),
+                    DropdownMenuItem(
+                      value: 'adjustment',
+                      child: Text('Manual Adjustment'),
+                    ),
                   ],
                   onChanged: (v) => setState(() => _reason = v!),
                 ),
                 const Spacer(),
                 FilledButton(
-                  onPressed: _selectedItemId == null || _quantity <= 0 ? null : _logShrinkage,
+                  onPressed: _selectedItemId == null || _quantity <= 0
+                      ? null
+                      : _logShrinkage,
                   child: const Text('Log Issue'),
                 ),
               ],
@@ -77,20 +94,26 @@ class _ShrinkageViewState extends ConsumerState<ShrinkageView> {
 
   Future<void> _logShrinkage() async {
     try {
-      await ref.read(stockMovementRepositoryProvider).logShrinkage(
-        itemId: _selectedItemId!,
-        quantityReduced: _quantity,
-        reason: _reason,
-      );
+      await ref
+          .read(stockMovementRepositoryProvider)
+          .logShrinkage(
+            itemId: _selectedItemId!,
+            quantityReduced: _quantity,
+            reason: _reason,
+          );
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Stock issue logged successfully.')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Stock issue logged successfully.')),
+      );
       setState(() {
         _selectedItemId = null;
         _quantity = 1;
         _reason = 'damaged';
       });
     } catch (e) {
-      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
+      if (mounted)
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Error: $e')));
     }
   }
 }
