@@ -48,10 +48,10 @@ Defines the complete local SQLite schema via Drift tables and DAOs with compile-
 
 ---
 
-## M02 – Customer & Credit Management 🔄 IN PROGRESS
+## M02 – Customer & Credit Management ✅ COMPLETE
 
 **Branch:** `feat/m02-customer-credit`  
-**Status:** Active – agent is working here
+**Status:** Completed and ready for review
 
 ### Context
 Implements the customer directory and credit ledger system. Tracks individual customer balances, credit limits, transaction histories, and repayments. Generates offline Credit Statement PDFs dynamically branded with the business profile.
@@ -65,7 +65,7 @@ Implements the customer directory and credit ledger system. Tracks individual cu
 - [x] Implement atomic Repayment flow (inserts `credit_transaction`, updates balance)
 - [x] Build Credit Ledger dashboard summarizing total outstanding debt and top debtors
 - [x] Implement dynamic Credit Statement PDF generation and sharing
-- [ ] Write unit and integration tests covering credit limits, repayments, and balance updates
+- [x] Write unit and integration tests covering credit limits, repayments, and balance updates
 
 ---
 
