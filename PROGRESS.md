@@ -145,21 +145,21 @@ Provides professional document creation for quotes and invoices. Supports one-cl
 
 ---
 
-## M07 – Dashboard & Analytics Reporting ⏳ PENDING
+## M07 – Dashboard & Analytics Reporting 🔄 IN PROGRESS
 
 **Branch:** `feat/m07-dashboard-reporting`  
-**Status:** Pending M06
+**Status:** Active – agent is working here
 
 ### Context
 Provides the merchant with actionable real-time business intelligence: daily revenue totals, outstanding debt summaries, low-stock alerts, and an offline Profit & Loss reporting engine with Cash vs Accrual views.
 
 ### Tasks
 
-- [ ] Build Owner Dashboard with daily metrics (Today's Revenue, Total Outstanding Debt, Low Stock Count)
-- [ ] Implement Profit & Loss calculation engine (Revenue, COGS from snapshotted costs, Gross Profit, Expenses, Net Profit)
-- [ ] Build P&L Report screen with custom date ranges and Cash vs Accrual view toggles
-- [ ] Build Stock Valuation report (total inventory value at cost vs retail)
-- [ ] Write comprehensive unit tests for P&L financial equations and date slicing
+  - [x] Build Owner Dashboard with daily metrics (Today's Revenue, Total Outstanding Debt, Low Stock Count)
+  - [x] Implement Profit & Loss calculation engine (Revenue, COGS from snapshotted costs, Gross Profit, Expenses, Net Profit)
+  - [x] Build P&L Report screen with custom date ranges and Cash vs Accrual view toggles
+  - [x] Build Stock Valuation report (total inventory value at cost vs retail)
+  - [x] Write comprehensive unit tests for P&L financial equations and date slicing
 
 ---
 
