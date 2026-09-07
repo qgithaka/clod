@@ -69,10 +69,10 @@ Implements the customer directory and credit ledger system. Tracks individual cu
 
 ---
 
-## M03 – Product & Service Catalogue 🔄 IN PROGRESS
+## M03 – Product & Service Catalogue ✅ COMPLETE
 
 **Branch:** `feat/m03-catalogue-inventory`  
-**Status:** Active – agent is working here
+**Status:** Completed and ready for review
 
 ### Context
 Builds the unified catalogue supporting both physical products (with stock tracking, buying price, and low-stock alerts) and services (selling price only). Enforces soft deletion to preserve historical data integrity.
@@ -83,7 +83,7 @@ Builds the unified catalogue supporting both physical products (with stock track
 - [x] Build Catalogue List screen with search, type filters (All / Products / Services), and stock badges
 - [x] Build Add/Edit Item form (Products: buying/selling price, stock, threshold; Services: selling price only)
 - [x] Implement soft-delete (`is_active`) and low-stock alert triggers
-- [ ] Write unit tests for catalogue search, filtering, and stock threshold logic
+- [x] Write unit tests for catalogue search, filtering, and stock threshold logic
 
 ---
 
