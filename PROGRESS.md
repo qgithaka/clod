@@ -63,7 +63,7 @@ Implements the customer directory and credit ledger system. Tracks individual cu
 - [x] Build Add/Edit Customer form with validation (name, phone, address, credit limit)
 - [x] Build Customer Detail screen displaying transaction history and current credit balance
 - [x] Implement atomic Repayment flow (inserts `credit_transaction`, updates balance)
-- [ ] Build Credit Ledger dashboard summarizing total outstanding debt and top debtors
+- [x] Build Credit Ledger dashboard summarizing total outstanding debt and top debtors
 - [ ] Implement dynamic Credit Statement PDF generation and sharing
 - [ ] Write unit and integration tests covering credit limits, repayments, and balance updates
 
