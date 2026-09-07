@@ -28,10 +28,10 @@ Establishes the Flutter multi-platform application foundation targeting Windows 
 
 ---
 
-## M01 – Core Data Layer & Business Profile 🔄 IN PROGRESS
+## M01 – Core Data Layer & Business Profile ✅ COMPLETE
 
 **Branch:** `feat/m01-core-data-layer`  
-**Status:** Active – agent is working here
+**Status:** Merged into `development`
 
 ### Context
 Defines the complete local SQLite schema via Drift tables and DAOs with compile-time safety, reactive streams, and strict integer-cents money typing. Implements the Business Profile singleton, persistent local logo storage in application documents, and core financial math utilities.
@@ -48,10 +48,10 @@ Defines the complete local SQLite schema via Drift tables and DAOs with compile-
 
 ---
 
-## M02 – Customer & Credit Management ⏳ PENDING
+## M02 – Customer & Credit Management 🔄 IN PROGRESS
 
 **Branch:** `feat/m02-customer-credit`  
-**Status:** Pending M01
+**Status:** Active – agent is working here
 
 ### Context
 Implements the customer directory and credit ledger system. Tracks individual customer balances, credit limits, transaction histories, and repayments. Generates offline Credit Statement PDFs dynamically branded with the business profile.
