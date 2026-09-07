@@ -209,7 +209,7 @@ Implements automated release generation, semantic versioning, and distribution w
 
 ### Tasks
 - [ ] Set up Pull Request Gatekeeper CI (flutter analyze and flutter test) for merging into `development`, `staging`, and `production`
-- [ ] Configure GitHub Actions to automatically bump version numbers and generate CHANGELOG.md when merging to `development`
+- [x] Configure GitHub Actions to automatically bump version numbers and generate CHANGELOG.md when merging to `development`
 - [ ] Create Staging Delivery Workflow: Automatically build Pre-release artifacts (Windows Installer, Android APK/AAB) when merging into `staging`
 - [ ] Create Production Delivery Workflow: Automatically publish signed Production Releases when merging into `production`
 - [ ] Add code scanning and secret leak prevention Actions on all pushes
