@@ -2,45 +2,58 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static ThemeData get lightTheme {
-    return ThemeData(
-      useMaterial3: true,
-      colorScheme:
-          ColorScheme.fromSeed(
-            seedColor: Colors.blueGrey,
-            brightness: Brightness.light,
-          ).copyWith(
-            primary: Colors.black, // High contrast primary
-            onPrimary: Colors.white,
-            secondary: Colors.blueGrey.shade800,
-            onSecondary: Colors.white,
-            error: Colors.red.shade700,
-          ),
-      appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        elevation: 0,
-      ),
-    );
+    return darkTheme; // Force dark mode for now as requested
   }
 
   static ThemeData get darkTheme {
     return ThemeData(
       useMaterial3: true,
-      colorScheme:
-          ColorScheme.fromSeed(
-            seedColor: Colors.blueGrey,
-            brightness: Brightness.dark,
-          ).copyWith(
-            primary: Colors.white, // High contrast primary
-            onPrimary: Colors.black,
-            secondary: Colors.blueGrey.shade200,
-            onSecondary: Colors.black,
-            error: Colors.red.shade300,
-          ),
+      brightness: Brightness.dark,
+      scaffoldBackgroundColor: const Color(0xFF121212),
+      cardColor: const Color(0xFF1E1E1E),
+      colorScheme: const ColorScheme.dark(
+        primary: Color(0xFF6200EA),
+        secondary: Color(0xFF00C853),
+        surface: Color(0xFF1E1E1E),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        fillColor: const Color(0xFF2A2A2A),
+        filled: true,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: Color(0xFF6200EA), width: 1.5),
+        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      ),
       appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.black,
+        backgroundColor: Color(0xFF121212),
         foregroundColor: Colors.white,
         elevation: 0,
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: const Color(0xFF1E1E1E),
+        indicatorColor: const Color(0xFF6200EA).withOpacity(0.2),
+        iconTheme: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return const IconThemeData(color: Color(0xFF6200EA));
+          }
+          return const IconThemeData(color: Colors.white54);
+        }),
+      ),
+      cardTheme: CardTheme(
+        color: const Color(0xFF1E1E1E),
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
       ),
     );
   }
