@@ -219,11 +219,16 @@ Implements automated release generation, semantic versioning, and distribution w
 ## M11 - UI/UX Refinement ?? PLANNED
 
 **Branch:** `feat/m11-ui-refinement`  
-**Status:** Active – agent is working here
+**Status:** Active  agent is working here
 
 ### Context
 Outsources UI/UX design to ChatGPT Pro by generating descriptive prompts for every app page, incorporating modern layout suggestions (charts, visual grids, badges).
 
 ### Tasks
-- [ ] Provide UI descriptions and desired improvements for all major app pages.
+- [x] Provide UI descriptions and desired improvements for all major app pages.
+- [ ] Implement global dark theme (colors, typography, input decorations, card styles) matching the mockup palette.
+- [ ] Refactor `ResponsiveShell` (sidebar, top bar, search) to match the new dark design.
+- [ ] Implement new Dashboard layout (KPI cards with sparklines, Revenue Chart, Recent Sales list, Quick Actions grid).
+- [ ] Implement new POS layout (Split pane, category chips, styled product grid cards, structured cart, massive checkout buttons).
+- [ ] Apply the new design language to remaining pages (Catalogue, Customers, Documents, Back-Office, Reports).
 
