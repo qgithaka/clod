@@ -1,0 +1,5 @@
+fix(`theme`): resolve deprecated flutter material APIs
+
+Updated CardTheme to CardThemeData and replaced deprecated withOpacity calls with withValues(alpha: ...) to comply with Flutter 3.24+ analyzer constraints.
+
+Ensures the M11 branch passes the CI PR Gatekeeper.

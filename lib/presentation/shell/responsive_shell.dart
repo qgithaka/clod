@@ -47,10 +47,12 @@ class ResponsiveShell extends StatelessWidget {
               selectedIndex: selectedIndex,
               onDestinationSelected: onDestinationSelected,
               destinations: _items
-                  .map((item) => NavigationDestination(
-                        icon: Icon(item.icon),
-                        label: item.label,
-                      ))
+                  .map(
+                    (item) => NavigationDestination(
+                      icon: Icon(item.icon),
+                      label: item.label,
+                    ),
+                  )
                   .toList(),
             ),
           );
@@ -100,8 +102,8 @@ class ResponsiveShell extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color:
-                        Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                    color: Theme.of(context).colorScheme.primary
+                        .withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Icon(
@@ -142,17 +144,13 @@ class ResponsiveShell extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         color: isSelected
-                            ? Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withOpacity(0.15)
+                            ? Theme.of(context).colorScheme.primary
+                                  .withValues(alpha: 0.15)
                             : Colors.transparent,
                         border: Border.all(
                           color: isSelected
-                              ? Theme.of(context)
-                                  .colorScheme
-                                  .primary
-                                  .withOpacity(0.5)
+                              ? Theme.of(context).colorScheme.primary
+                                    .withValues(alpha: 0.5)
                               : Colors.transparent,
                           width: 1,
                         ),

@@ -31,7 +31,10 @@ class AppTheme {
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: Color(0xFF6200EA), width: 1.5),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 12,
+        ),
       ),
       appBarTheme: const AppBarTheme(
         backgroundColor: Color(0xFF121212),
@@ -40,7 +43,7 @@ class AppTheme {
       ),
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: const Color(0xFF1E1E1E),
-        indicatorColor: const Color(0xFF6200EA).withOpacity(0.2),
+        indicatorColor: const Color(0xFF6200EA).withValues(alpha: 0.2),
         iconTheme: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
             return const IconThemeData(color: Color(0xFF6200EA));
@@ -48,12 +51,10 @@ class AppTheme {
           return const IconThemeData(color: Colors.white54);
         }),
       ),
-      cardTheme: CardTheme(
-        color: const Color(0xFF1E1E1E),
+      cardTheme: const CardThemeData(
+        color: Color(0xFF1E1E1E),
         elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
       ),
     );
   }
