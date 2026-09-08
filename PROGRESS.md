@@ -213,3 +213,17 @@ Implements automated release generation, semantic versioning, and distribution w
 - [x] Create Staging Delivery Workflow: Automatically build Pre-release artifacts (Windows Installer, Android APK/AAB) when merging into `staging`
 - [x] Create Production Delivery Workflow: Automatically publish signed Production Releases when merging into `production`
 - [x] Add code scanning and secret leak prevention Actions on all pushes
+
+---
+
+## M11 - UI/UX Refinement ?? PLANNED
+
+**Branch:** `feat/m11-ui-refinement`  
+**Status:** Active – agent is working here
+
+### Context
+Outsources UI/UX design to ChatGPT Pro by generating descriptive prompts for every app page, incorporating modern layout suggestions (charts, visual grids, badges).
+
+### Tasks
+- [ ] Provide UI descriptions and desired improvements for all major app pages.
+
